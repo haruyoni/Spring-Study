@@ -1,0 +1,5 @@
+package com.springbasic.vo;
+
+public class Student {
+
+}

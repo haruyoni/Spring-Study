@@ -1,0 +1,13 @@
+
+1월 17, 2024 14:38:34.415 NEW SESSION
+1월 17, 2024 14:38:34.415 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 17, 2024 14:41:34.921 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 17, 2024 15:26:02.527 [4900:5704:0117/152602.527:ERROR:device_event_log_impl.cc(192)] [15:26:02.527] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+1월 17, 2024 15:26:02.560 [4900:5704:0117/152602.560:ERROR:device_event_log_impl.cc(192)] [15:26:02.560] USB: usb_service_win.cc:307 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+1월 17, 2024 15:45:58.269 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 17, 2024 16:20:52.890 [3648:3808:0117/162052.890:ERROR:interface_endpoint_client.cc(702)] Message 5 rejected by interface blink.mojom.WidgetHost
+
+1월 17, 2024 17:14:21.601 NEW SESSION
+1월 17, 2024 17:14:21.601 [2996:4028:0117/171421.600:ERROR:rankings.cc(778)] Inconsistent LRU.
+1월 17, 2024 17:14:21.602 [2996:4028:0117/171421.600:ERROR:backend_impl.cc(984)] Critical error found -8
+1월 17, 2024 17:14:23.706 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
