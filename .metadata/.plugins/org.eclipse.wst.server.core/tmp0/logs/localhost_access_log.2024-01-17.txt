@@ -208,3 +208,5 @@
 0:0:0:0:0:0:0:1 - - [17/Jan/2024:17:21:49 +0900] "GET /controller/student/output HTTP/1.1" 406 818
 0:0:0:0:0:0:0:1 - - [17/Jan/2024:17:21:50 +0900] "GET /controller/student/output HTTP/1.1" 406 818
 0:0:0:0:0:0:0:1 - - [17/Jan/2024:17:21:50 +0900] "GET /controller/student/output HTTP/1.1" 406 818
+127.0.0.1 - - [17/Jan/2024:17:23:08 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [17/Jan/2024:17:23:12 +0900] "GET /controller/student/output HTTP/1.1" 200 49
