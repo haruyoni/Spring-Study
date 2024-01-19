@@ -6,4 +6,16 @@
 	<select id="curDate" resultType="String">
 		select now()
 	</select>
+	
+	<select id="viewMemberByUserId" resultType="com.springbasic.vo.Member">
+		select * from member where userId = #{userId}
+	</select>
+	
+	<insert id="inputMemberWithoutImg">
+      insert into member(userId, userPwd, userEmail) values (#{userId}, sha1(md5(#{userPwd})), #{userEmail});
+   </insert>
+   
+   <select id="getAllMembers" resultType="com.springbasic.vo.Member">
+   		select * from member
+   </select>
 </mapper>

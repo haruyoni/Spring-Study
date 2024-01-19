@@ -11,3 +11,6 @@
 1월 17, 2024 17:14:21.601 [2996:4028:0117/171421.600:ERROR:rankings.cc(778)] Inconsistent LRU.
 1월 17, 2024 17:14:21.602 [2996:4028:0117/171421.600:ERROR:backend_impl.cc(984)] Critical error found -8
 1월 17, 2024 17:14:23.706 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+1월 19, 2024 14:38:41.899 NEW SESSION
+1월 19, 2024 14:38:41.899 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
