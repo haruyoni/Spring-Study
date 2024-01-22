@@ -14,3 +14,20 @@
 
 1월 19, 2024 14:38:41.899 NEW SESSION
 1월 19, 2024 14:38:41.899 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+
+1월 22, 2024 11:43:45.760 NEW SESSION
+1월 22, 2024 11:43:45.760 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+1월 22, 2024 11:45:00.745 [7396:14352:0122/114500.745:ERROR:interface_endpoint_client.cc(702)] Message 5 rejected by interface blink.mojom.WidgetHost
+1월 22, 2024 11:53:28.312 [7396:14352:0122/115328.312:ERROR:CONSOLE(0)] "ReferenceError: dragEvent is not defined", source:  (0)
+1월 22, 2024 12:02:53.349 [7396:14352:0122/120253.349:ERROR:CONSOLE(0)] "ReferenceError: dragEvent is not defined", source:  (0)
+1월 22, 2024 12:31:41.819 [7396:14352:0122/123141.819:ERROR:device_event_log_impl.cc(192)] [12:31:41.819] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+1월 22, 2024 12:31:41.849 [7396:14352:0122/123141.849:ERROR:device_event_log_impl.cc(192)] [12:31:41.849] USB: usb_service_win.cc:307 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+1월 22, 2024 13:01:21.749 [7396:14352:0122/130121.748:ERROR:interface_endpoint_client.cc(702)] Message 5 rejected by interface blink.mojom.WidgetHost
+1월 22, 2024 13:10:58.868 WARNING: Attempting to use a delegate that only supports static-sized tensors with a graph that has dynamic-sized tensors (tensor#56 is a dynamic-sized tensor).
+1월 22, 2024 14:32:05.664 [7396:14352:0122/143205.664:ERROR:device_event_log_impl.cc(192)] [14:32:05.664] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+1월 22, 2024 14:32:05.699 [7396:14352:0122/143205.698:ERROR:device_event_log_impl.cc(192)] [14:32:05.699] USB: usb_service_win.cc:307 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+1월 22, 2024 16:37:57.947 [7396:14352:0122/163757.947:ERROR:device_event_log_impl.cc(192)] [16:37:57.947] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+1월 22, 2024 16:37:57.982 [7396:14352:0122/163757.981:ERROR:device_event_log_impl.cc(192)] [16:37:57.981] USB: usb_service_win.cc:307 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+1월 22, 2024 17:39:47.865 [7396:14352:0122/173947.865:ERROR:device_event_log_impl.cc(192)] [17:39:47.865] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+1월 22, 2024 18:08:54.763 [7396:14352:0122/180854.763:ERROR:device_event_log_impl.cc(192)] [18:08:54.763] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+1월 22, 2024 18:19:07.753 [7396:14352:0122/181907.753:ERROR:device_event_log_impl.cc(192)] [18:19:07.753] USB: usb_service_win.cc:307 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)

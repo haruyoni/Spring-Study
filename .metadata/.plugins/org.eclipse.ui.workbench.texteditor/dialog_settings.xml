@@ -6,8 +6,11 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="target"/>
+		<item key="selection" value="jstl"/>
 		<list key="findhistory">
+			<item value="jstl"/>
+			<item value="1.6"/>
+			<item value="1.8"/>
 			<item value="target"/>
 			<item value="source"/>
 			<item value="String stuNo,"/>
