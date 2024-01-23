@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-    <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.persistence{MemberDAO.java[MemberDAO" modifiers="513" timestamp="1705644906259"/>
-    <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.persistence{BoardDAO.java[BoardDAO" modifiers="513" timestamp="1705644383175"/>
-    <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.service.board{BoardService.java[BoardService" modifiers="513" timestamp="1705644757135"/>
+    <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.persistence{MemberDAO.java[MemberDAO" modifiers="513" timestamp="1705646788080"/>
+    <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.persistence{BoardDAO.java[BoardDAO" modifiers="513" timestamp="1705888004472"/>
+    <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.service.board{BoardService.java[BoardService" modifiers="513" timestamp="1705887816983"/>
+    <typeInfo handle="=Miniproject/C:\/Users\/goott5\/.m2\/repository\/org\/springframework\/spring-web\/4.3.8.RELEASE\/spring-web-4.3.8.RELEASE.jar=/maven.pomderived=/true=/=/org.eclipse.jst.component.dependency=/\/WEB-INF\/lib=/=/maven.pomderived=/true=/=/org.eclipse.jst.component.archivename=/spring-web-4.3.8.RELEASE.jar=/=/maven.groupId=/org.springframework=/=/maven.artifactId=/spring-web=/=/maven.version=/4.3.8.RELEASE=/=/maven.scope=/compile=/&lt;org.springframework.web.multipart.commons(CommonsMultipartResolver.class[CommonsMultipartResolver" modifiers="33" timestamp="1705479745963"/>
 </typeInfoHistroy>

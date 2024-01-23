@@ -35,15 +35,74 @@ $(function(){
 		          contentType : false, // application/x-www-form-urlencoded 처리하지 않음
 		          success: function (data) {
 		        	  console.log(data);
+		        	  if(data!=null){
+		        		  displayUploadedFile(data);
+		        	  }
 		          },
 		          error: function () {},
 		          complete: function () {},
 		        });
-		})
+		});
 	});
-	
-	
 });
+	
+	function displayUploadedFile(json){
+		let output = "";
+		$.each(json, function(i, item){
+			let name = item.newFileName;
+			
+			if(item.thumbFileName != null){
+				let thumb = item.thumbFileName;
+				output += `<img src='../resources/uploads/\${thumb}' id='\${item.newFileName}'/>`;
+				output += `<img src='../resources/images/remove.png' class='remIcon' onclick='remFile(this)'/>`;
+			} else{
+				output += `<a href='../resources/uploads/\${name}'/>\${item.originalFileName}</a>`;
+				output += `<img src='../resources/images/remove.png' class='remIcon' onclick='remFile(this)'/>`;
+			}
+		});
+		$(".upLoadFiles").html(output)
+	}
+	
+	function remFile(fileId){
+		console.log(fileId);
+		let removeFile = $(fileId).prev().attr('id'); //삭제할 파일의 originalName
+		console.log(removeFile);
+		$.ajax({
+	          url: "remFile", 
+	          type: "GET",
+	          data : {
+	        	"removeFile" : removeFile
+	          }, 
+	          dataType: "text", 
+	          success: function (data) {
+	        	  console.log(data);
+	        	  if(data == "success"){	        		  
+	        		  $(fileId).prev().remove();
+	        		  $(fileId).remove();
+	        	  } 
+	          },
+	          error: function () {},
+	          complete: function () {},
+	        });
+	}
+	
+	function cancelBtn(){
+		console.log("취소")
+		$.ajax({
+	          url: "remAllFile", 
+	          type: "GET",
+	          dataType: "text", 
+	          success: function (data) {
+	        	  console.log(data);
+	        	  if(data == "success"){	        		  
+	        		  location.href = "listAll"
+	        	  }
+	          },
+	          error: function () {},
+	          complete: function () {},
+	        });
+	}
+	
 	
 </script>
 <style>
@@ -88,10 +147,11 @@ $(function(){
 			<div class="mb-3 mt-3">
 			    <label for="upFile" class="form-label">첨부이미지 :</label>
 			    <div class="upFileArea">업로드할 파일을 드래그앤드랍 하세요.</div>
+			    <div class="upLoadFiles"></div>
 			</div>
 			
 			<button type="submit" class="btn btn-success">저장</button>
-			<button type="reset" class="btn btn-danger">취소</button>
+			<button type="reset" class="btn btn-danger" onclick="cancelBtn();">취소</button>
 		
 		</form>
 	</div>
