@@ -1,8 +1,0 @@
-package com.springbasic.vo;
-
-public class Student {
-	private String studNo;
-	private String stuName;
-	
-	
-}

@@ -6,5 +6,8 @@ import com.miniproj.domain.Member;
 
 public interface MemberDAO {
 	String getDate();
-	List<Member> selectAllMembers();
+	
+	// member 테이블에 userpoint를 update
+	void updateUserPoint(String why, String userId) throws Exception;
+	
 }

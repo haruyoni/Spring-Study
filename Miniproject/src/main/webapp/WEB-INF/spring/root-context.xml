@@ -5,40 +5,51 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-	
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-			<!-- DB Log4jdbc 설정 -->
-<!-- 	<bean id="dataSource" -->
-<!-- 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
-<!-- 		<property name="url" -->
-<!-- 			value="jdbc:log4jdbc:mysql://localhost:3306/hay?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8"> -->
-<!-- 		</property> -->
-<!-- 		<property name="driverClassName" -->
-<!-- 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"> -->
-<!-- 		</property> -->
-<!-- 		<property name="username" value="root"></property> -->
-<!-- 		<property name="password" value="1234"></property> -->
-<!-- 	</bean> -->
+	<!-- DB Log4jdbc 설정 -->
+	<!-- <bean id="dataSource" -->
+	<!-- class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+	<!-- <property name="url" -->
+	<!-- value="jdbc:log4jdbc:mysql://localhost:3306/hay?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8"> -->
+	<!-- </property> -->
+	<!-- <property name="driverClassName" -->
+	<!-- value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"> -->
+	<!-- </property> -->
+	<!-- <property name="username" value="root"></property> -->
+	<!-- <property name="password" value="1234"></property> -->
+	<!-- </bean> -->
 
 
 
 	<!-- 데이터베이스 Connection -->
 	<bean id="dataSource"
-	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	<property name="url"
-	value="jdbc:mysql://localhost:3306/hay?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8">
-	</property>
-	<property name="driverClassName"
-	value="com.mysql.cj.jdbc.Driver">
-	</property>
-	<property name="username" value="root"></property>
-	<property name="password" value="1234"></property>
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/hay?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8">
+		</property>
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="1234"></property>
 	</bean>
+
+	<!-- 데이터소스 트랜잭션 매니저 객체 설정 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- transaction을 annotation 방식으로 처리함 -->
+	<tx:annotation-driven />
 
 	<!-- sqlSessionFactory 설정 -->
 	<bean id="sqlSessionFactory"
@@ -62,10 +73,14 @@
 		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 
+	<!-- AOP 설정을 위한 proxy 객체 설정 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
 	<!-- 아래의 패키지를 조사(scan)하여 패키지 안의 객체를 관리 -->
 	<context:component-scan
 		base-package="com.miniproj.persistence" />
 	<context:component-scan
 		base-package="com.miniproj.service" />
-		
+
+
 </beans>

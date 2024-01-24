@@ -128,10 +128,10 @@ $(function(){
 	
 	<div class="container">
 		<h1>게시판 글쓰기</h1>
-		<form action="writeBoard.bo" method="post">
+		<form action="writeBoard" method="post">
 			<div class="mb-3 mt-3">
 			    <label for="writer" class="form-label">작성자:</label>
-			    <input type="text" class="form-control" id="writer" name="writer" value="${sessionScope.loginUser.userId}" readonly>
+			    <input type="text" class="form-control" id="writer" name="writer" value="${sessionScope.loginUser.userId}" >
 			</div>
 			
 			<div class="mb-3 mt-3">
@@ -149,6 +149,7 @@ $(function(){
 			    <div class="upFileArea">업로드할 파일을 드래그앤드랍 하세요.</div>
 			    <div class="upLoadFiles"></div>
 			</div>
+			<input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
 			
 			<button type="submit" class="btn btn-success">저장</button>
 			<button type="reset" class="btn btn-danger" onclick="cancelBtn();">취소</button>

@@ -1,6 +1,8 @@
 package com.miniproj.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -21,10 +23,14 @@ public class MemberDAOImpl implements MemberDAO {
 		String q = ns + ".curDate"; // mapper namespace + 쿼리 id
 		return ses.selectOne(q);
 	}
-	
+
 	@Override
-	public List<Member> selectAllMembers() {
-		String q = ns + ".getAllMembers";
-		return ses.selectList(q);
+	public void updateUserPoint(String why, String userId) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("why", why);
+		param.put("userId", userId);
+		
+		ses.update(ns+".updateUserPoint", param);
 	}
+
 }

@@ -7,4 +7,17 @@
 		select * from board order by no desc
 	</select>
 
+	<insert id="insertNewBoard">
+		insert into board(writer, title, content) 
+		values(#{writer}, #{title}, #{content})
+	</insert>
+	
+	<select id="getNo" resultType="int">
+		select max(no) from board
+	</select>
+	
+	<insert id="insertUploadedFile">
+		insert into uploadedfile(originFileName, newFileName, size, boardNo, thumbFileName)
+		values(#{originalFileName}, #{newFileName}, #{fileSize}, #{boardNo}, #{thumbFileName})
+	</insert>
 </mapper>
