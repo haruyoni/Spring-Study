@@ -3,6 +3,7 @@ package com.miniproj.controller.board;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -22,8 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.miniproj.domain.Board;
+import com.miniproj.domain.UploadedFile;
+import com.miniproj.etc.GetUserIPAddr;
 import com.miniproj.etc.UploadFileProcess;
-import com.miniproj.etc.UploadedFile;
 import com.miniproj.service.board.BoardService;
 
 /**
@@ -57,7 +59,6 @@ public class BoardController {
 			}
 			model.addAttribute("boardList", lst);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -71,22 +72,24 @@ public class BoardController {
 	   }
 	   
 	   @RequestMapping(value = "writeBoard", method = RequestMethod.POST)
-	   public void writeBoard( Board newBoard, @RequestParam("csrfToken") String inputcsrf, HttpSession ses) {
+	   public String writeBoard( Board newBoard, @RequestParam("csrfToken") String inputcsrf, HttpSession ses) {
 	      logger.info( "게시판 글 작성 : " + newBoard.toString() );
 	      logger.info( "csrf : " + inputcsrf );
+	      
+	      String redirectPage = "";
 	      
 	      if( ((String)ses.getAttribute("csrfToken")).equals(inputcsrf) ) {
 	         // csrfToken이 같은 경우에만 게시글을 저장
 	         try {
 	            bService.saveNewBoard(newBoard, fileList);
-	            
-	            
+	            redirectPage = "listAll";
 	         } catch (Exception e) {
-	            // TODO Auto-generated catch block
 	            e.printStackTrace();
-	         }
-	         
+	            redirectPage = "listAll?status=fail";
+	         }  
 	      }
+
+	      return "redirect:"+redirectPage;
 	   }
 
 	/**
@@ -118,7 +121,6 @@ public class BoardController {
 				fileList.add(uf);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -160,6 +162,15 @@ public class BoardController {
 		this.fileList.clear();
 
 		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
+	@RequestMapping("viewBoard")
+	public void viewBoard(@RequestParam("no") int no, HttpServletRequest request, Model model) throws Exception {
+		logger.info(no + "번 글을 상세조회하자!");
+		
+		Map<String, Object> result = bService.getBoardByNo(no, GetUserIPAddr.getIp(request));
+		model.addAttribute("board", (Board)result.get("board"));
+		model.addAttribute("upFileList", (List<UploadedFile>)result.get("upFileList"));
 	}
 
 }

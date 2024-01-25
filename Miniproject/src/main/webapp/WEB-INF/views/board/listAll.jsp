@@ -12,6 +12,12 @@
 <c:set var="now" value="<%=new java.util.Date()%>" />
 <title>게시판</title>
 <script>
+window.addEventListener('pageshow', function(event) {
+	  if(event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	      // 웹 페이지가 캐시에서 로드된 경우 처리할 내용 작성
+	      location.reload();
+	  }
+	});
 	$(function(){
 		$(".isNewDpTarget").each((idx, item) => {
 			if(getHowLong($(item).next().next().text())<5){
@@ -38,16 +44,17 @@
 	});
 </script>
 <style>
-input:focus{
- 	outline : none !important; 
+input:focus {
+	outline: none !important;
 }
-.pagination {
-	--bs-pagination-focus-box-shadow: none !important;
-	--bs-pagination-border-color: none !important;
-	--bs-pagination-disabled-bg: none !important;
-	--bs-pagination-disabled-color: gray !important;
-	--bs-pagination-color: none !important;
-	--bs-pagination-hover-color: none !important;
+
+.pagination { -
+	-bs-pagination-focus-box-shadow: none !important; -
+	-bs-pagination-border-color: none !important; -
+	-bs-pagination-disabled-bg: none !important; -
+	-bs-pagination-disabled-color: gray !important; -
+	-bs-pagination-color: none !important; -
+	-bs-pagination-hover-color: none !important;
 }
 
 .page-item {
@@ -68,20 +75,23 @@ input:focus{
 	display: flex;
 	justify-content: space-between;
 }
-.pageNav{
-	width:450px;
+
+.pageNav {
+	width: 450px;
 }
+
 .searchArea {
 	display: flex;
 	justify-content: flex-end;
 }
-.btns{
-	width:350px;
+
+.btns {
+	width: 350px;
 }
 </style>
 </head>
 <body>
-<c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
+	<c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
 	<jsp:include page="${contextPath}/WEB-INF/views/header.jsp"></jsp:include>
 	<div class="container">
 		<div class="boardList">
@@ -100,11 +110,12 @@ input:focus{
 						</thead>
 						<tbody>
 							<c:forEach var="board" items="${boardList}">
-								<c:url value="boardDetail.bo" var="detailUri">
-									<c:param name="boardNo" value="${board.no}" />
-									<c:param name="page" value="detail" />
-								</c:url>
-								<tr class="board" onclick="location.href='${detailUri}';">
+								<%-- 								<c:url value="viewBoard" var="detailUri"> --%>
+								<%-- 									<c:param name="boardNo" value="${board.no}" /> --%>
+								<%-- 									<c:param name="page" value="detail" /> --%>
+								<%-- 								</c:url> --%>
+								<tr class="board"
+									onclick="location.href='viewBoard?no=${board.no}';">
 									<td>${board.no}</td>
 									<td><c:if test="${board.step > 0 }">
 											<c:forEach var="i" begin="1" end="${board.step}"
@@ -143,65 +154,67 @@ input:focus{
 			<!-- 		</div> -->
 			<c:if test="${pagingInfo.totalPagingBlockCnt > 0 }">
 
-			<div class="mb-3 mt-3 pageNav">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center pagination-sm">
+				<div class="mb-3 mt-3 pageNav">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center pagination-sm">
 
-						<!-- 이전 블락 버튼 -->
-						<c:if test="${pagingInfo.pageBlockOfCurrentPage > 1}">
-							<li class="page-item"><a class="page-link"
-								href="listAll.bo?pageNo=${pagingInfo.startNumOfCurrentPagingBlock - 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&lt;&lt;</a></li>
-						</c:if>
-						<%-- 			<c:if test="${pagingInfo.pageBlockOfCurrentPage > 1}"> --%>
-						<%-- 				<li class="page-item"><a class="page-link" href="listAll.bo?pageNo=${pagingInfo.startNumOfCurrentPagingBlock - 1}">&lt;&lt;</a></li>	 --%>
-						<%-- 			</c:if> --%>
-
-						<!-- 이전 버튼 -->
-						<c:if test="${param.pageNo != null && param.pageNo > 1}">
-							<li class="page-item"><a class="page-link"
-								href="listAll.bo?pageNo=${param.pageNo - 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&lt;</a></li>
-						</c:if>
-
-						<!-- 페이지 블럭 -->
-						<c:forEach var="i"
-							begin="${requestScope.pagingInfo.startNumOfCurrentPagingBlock }"
-							end="${requestScope.pagingInfo.endNumOfCurrentPagingBlock}">
-							<c:choose>
-								<c:when test="${requestScope.pagingInfo.pageNo == i }">
-									<li class="page-item active">
-								</c:when>
-								<c:otherwise>
-									<li class="page-item">
-								</c:otherwise>
-							</c:choose>
-							<a class="page-link" href="listAll.bo?pageNo=${i}&searchType=${param.searchType}&searchWord=${param.searchWord}" tabindex="-1">${i}</a>
-							</li>
-						</c:forEach>
-
-						<!-- 다음 버튼 -->
-						<c:if test="${pagingInfo.totalPageCnt>1}">
-							<c:if test="${param.pageNo==null}">
+							<!-- 이전 블락 버튼 -->
+							<c:if test="${pagingInfo.pageBlockOfCurrentPage > 1}">
 								<li class="page-item"><a class="page-link"
-									href="listAll.bo?pageNo=${2}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;</a></li>
+									href="listAll.bo?pageNo=${pagingInfo.startNumOfCurrentPagingBlock - 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&lt;&lt;</a></li>
 							</c:if>
-							<c:if test="${param.pageNo < pagingInfo.totalPageCnt}">
+							<%-- 			<c:if test="${pagingInfo.pageBlockOfCurrentPage > 1}"> --%>
+							<%-- 				<li class="page-item"><a class="page-link" href="listAll.bo?pageNo=${pagingInfo.startNumOfCurrentPagingBlock - 1}">&lt;&lt;</a></li>	 --%>
+							<%-- 			</c:if> --%>
+
+							<!-- 이전 버튼 -->
+							<c:if test="${param.pageNo != null && param.pageNo > 1}">
 								<li class="page-item"><a class="page-link"
-									href="listAll.bo?pageNo=${param.pageNo + 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;</a></li>
+									href="listAll.bo?pageNo=${param.pageNo - 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&lt;</a></li>
 							</c:if>
-						</c:if>
 
-						<!-- 다음 블락 버튼 -->
-						<c:if
-							test="${pagingInfo.pageBlockOfCurrentPage < pagingInfo.totalPagingBlockCnt}">
-							<li class="page-item"><a class="page-link"
-								href="listAll.bo?pageNo=${pagingInfo.endNumOfCurrentPagingBlock + 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;&gt;</a></li>
-						</c:if>
-						<%-- 			<c:if test="${pagingInfo.pageBlockOfCurrentPage < pagingInfo.totalPagingBlockCnt}"> --%>
-						<%-- 				<li class="page-item"><a class="page-link" href="listAll.bo?pageNo=${pagingInfo.endNumOfCurrentPagingBlock + 1}">&gt;&gt;</a></li>	 --%>
-						<%-- 			</c:if> --%>
+							<!-- 페이지 블럭 -->
+							<c:forEach var="i"
+								begin="${requestScope.pagingInfo.startNumOfCurrentPagingBlock }"
+								end="${requestScope.pagingInfo.endNumOfCurrentPagingBlock}">
+								<c:choose>
+									<c:when test="${requestScope.pagingInfo.pageNo == i }">
+										<li class="page-item active">
+									</c:when>
+									<c:otherwise>
+										<li class="page-item">
+									</c:otherwise>
+								</c:choose>
+								<a class="page-link"
+									href="listAll.bo?pageNo=${i}&searchType=${param.searchType}&searchWord=${param.searchWord}"
+									tabindex="-1">${i}</a>
+								</li>
+							</c:forEach>
 
-					</ul>
-				</nav>
+							<!-- 다음 버튼 -->
+							<c:if test="${pagingInfo.totalPageCnt>1}">
+								<c:if test="${param.pageNo==null}">
+									<li class="page-item"><a class="page-link"
+										href="listAll.bo?pageNo=${2}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;</a></li>
+								</c:if>
+								<c:if test="${param.pageNo < pagingInfo.totalPageCnt}">
+									<li class="page-item"><a class="page-link"
+										href="listAll.bo?pageNo=${param.pageNo + 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;</a></li>
+								</c:if>
+							</c:if>
+
+							<!-- 다음 블락 버튼 -->
+							<c:if
+								test="${pagingInfo.pageBlockOfCurrentPage < pagingInfo.totalPagingBlockCnt}">
+								<li class="page-item"><a class="page-link"
+									href="listAll.bo?pageNo=${pagingInfo.endNumOfCurrentPagingBlock + 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;&gt;</a></li>
+							</c:if>
+							<%-- 			<c:if test="${pagingInfo.pageBlockOfCurrentPage < pagingInfo.totalPagingBlockCnt}"> --%>
+							<%-- 				<li class="page-item"><a class="page-link" href="listAll.bo?pageNo=${pagingInfo.endNumOfCurrentPagingBlock + 1}">&gt;&gt;</a></li>	 --%>
+							<%-- 			</c:if> --%>
+
+						</ul>
+					</nav>
 				</div>
 				<!-- 검색 타입(작성자, 제목, 본문)과 검색어 입력 -->
 				<div class="mb-3 mt-3 searchItem">

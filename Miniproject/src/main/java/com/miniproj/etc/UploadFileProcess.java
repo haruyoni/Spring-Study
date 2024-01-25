@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.miniproj.domain.UploadedFile;
+
 /**
  * @packageName : com.miniproj.etc
  * @fileName : UploadFileProcess.java
@@ -35,7 +37,7 @@ public class UploadFileProcess {
 		
 		if(uploadFile.getSize() > 0) {
 			uf.setNewFileName(getNewFileName(uploadFile, completePath, realPath));
-			uf.setOriginalFileName(uploadFile.getOriginalFilename());
+			uf.setOriginFileName(uploadFile.getOriginalFilename());
 			uf.setSize(uploadFile.getSize());
 			uf.setExt("."+uploadFile.getContentType().substring(uploadFile.getContentType().indexOf("/")+1));
 			
@@ -65,8 +67,8 @@ public class UploadFileProcess {
 		BufferedImage thumbnailImg = Scalr.resize(originImg, Mode.FIT_TO_HEIGHT, 50);
 		
 		// 썸네일 저장
-		String thumbImgName = "thumb_"+uf.getOriginalFileName();
-		String ext =  uf.getOriginalFileName().substring(uf.getOriginalFileName().lastIndexOf(".") + 1);
+		String thumbImgName = "thumb_"+uf.getOriginFileName();
+		String ext =  uf.getOriginFileName().substring(uf.getOriginFileName().lastIndexOf(".") + 1);
 		File saveTarget = new File(completePath+File.separator + thumbImgName);
 		
 		if(ImageIO.write(thumbnailImg, ext,  saveTarget) ) { // 썸네일 저장되었다면

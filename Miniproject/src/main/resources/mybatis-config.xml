@@ -3,4 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<typeAliases>
+		<typeAlias type="com.miniproj.domain.Board" alias="Board" />
+		<typeAlias type="com.miniproj.domain.ReadCountProcess" alias="ReadCountProcess" />
+		<typeAlias type="com.miniproj.domain.UploadedFile" alias="UploadedFile" />
+	</typeAliases>
 </configuration>

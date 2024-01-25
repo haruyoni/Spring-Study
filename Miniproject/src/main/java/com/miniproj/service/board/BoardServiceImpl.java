@@ -1,6 +1,8 @@
 package com.miniproj.service.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -9,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.miniproj.domain.Board;
 import com.miniproj.domain.PointLog;
-import com.miniproj.etc.UploadedFile;
+import com.miniproj.domain.ReadCountProcess;
+import com.miniproj.domain.UploadedFile;
 import com.miniproj.persistence.BoardDAO;
 import com.miniproj.persistence.MemberDAO;
 import com.miniproj.persistence.PointLogDAO;
@@ -67,6 +70,63 @@ public class BoardServiceImpl implements BoardService {
 			plDao.insertPointLog(new PointLog(-1, null, "게시물작성", 2, newBoard.getWriter()));
 			
 		}
+	}
+
+	@Override
+	public Map<String, Object> getBoardByNo(int no, String ipAddr) throws Exception{
+//		💡 **해당 아이피 주소와 글번호가 같은 것이 없으면**
+//
+//		-> 해당 아이피주소가 해당 글을 **최초로 조회한 경우**
+//
+//		-> **아이피 주소**와 **글번호**와 **읽은 시간**을 **readcountprocess Table에 insert**
+//		-> 해당 글번호의 readcount를 증가(update)
+//		-> 해당 글을 가져옴(select)
+
+//		**해당 아이피 주소와 글번호가 같은 것이 있으면**
+//
+//		1. 시간이 24시간이 지난 경우
+//		-> 아이피 주소와 글번호와 읽은 시간을 readcountprocess Table에서 update
+//		-> 해당 글번호의 readcount를 증가(update)
+//		-> 해당 글을 가져옴(select)
+
+//		1. **시간이 24시간이 지나지 않은 경우**
+//		-> 해당 글을 가져옴(**select**)
+
+// ======================================================================== //
+		ReadCountProcess rcp = new ReadCountProcess(-1, ipAddr, no, null);
+		int readCount = 0;
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		// 해당 아이피와 글번호 테이블에 있는지 없는지 판단 
+		if (bDao.selectReadCountProcess(rcp)!=null){ // 조회한 적이 있음
+			
+			if(bDao.selectHourDiffReadTime(rcp)>23) { // 24시간 지난 경우
+				// readTime을 readcountprocess테이블에서 update
+				if(bDao.updateReadCountProcess(rcp) == 1) {
+					// 해당 글번호의 readcount를 증가 (update)
+					readCount = bDao.updateReadCount(no);
+				}
+			} else { // 24시간이 지나지 않은 경우
+				readCount = 1;
+			}
+		} else { // 최초 조회
+			// 아이피주소 글번호 읽은 시간을 readcountprocess테이블에 insert
+			if(bDao.insertReadCountProcess(rcp)==1) {
+				// 해당글의 조회수를 +1 증가 (update)
+				readCount = bDao.updateReadCount(no);
+			}
+		}
+		
+		// 해당글을 조회
+		if(readCount==1) {
+			Board board = bDao.selectBoardByNo(no);
+			List<UploadedFile> upFileList = bDao.selectUploadedFile(no);
+			
+			result.put("board", board);
+			result.put("upFileList", upFileList);
+		}
+		
+		return result;
 	}
 
 }
