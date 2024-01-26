@@ -8,6 +8,6 @@ public interface MemberDAO {
 	String getDate();
 	
 	// member 테이블에 userpoint를 update
-	void updateUserPoint(String why, String userId) throws Exception;
+	int updateUserPoint(String why, String userId) throws Exception;
 	
 }

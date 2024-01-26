@@ -34,7 +34,7 @@
 	<update id="updateReadCountProcess">
 		update readcountprocess 
 		set readTime=now() 
-		where no=#{boardNo} and ipAddr = #{ipAddr}
+		where boardNo=#{boardNo} and ipAddr = #{ipAddr}
 	</update>
 	
 	<update id="updateReadCount">

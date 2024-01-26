@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniproj.mappers.replyMapper">
+	<select id="selectAllReplies" resultType="Reply">
+		select * from reply
+		where parentNo = #{boardNo}
+	</select>
+	
+	<insert id="insertNewReply">
+		insert into reply (parentNo, replier, replyText) 
+		values(#{parentNo}, #{replier}, #{replyText})
+	</insert>
+</mapper>

@@ -15,8 +15,8 @@ public class PointLogDAOImpl implements PointLogDAO {
 	private SqlSession ses; // sqlSessionTemplate 객체에 주입
 	
 	@Override
-	public void insertPointLog(PointLog pl) throws Exception {
-		ses.insert(ns+".insertPointLog", pl);
+	public int insertPointLog(PointLog pl) throws Exception {
+		return ses.insert(ns+".insertPointLog", pl);
 	}
 
 }

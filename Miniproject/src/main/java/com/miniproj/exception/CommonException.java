@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice // 현재 클래스가 곹옹예외처리를 할 클래스임을 명시
+@ControllerAdvice // 현재 클래스가 공통 예외처리를 할 클래스임을 명시
 public class CommonException {
 	
 	@ExceptionHandler(IOException.class)

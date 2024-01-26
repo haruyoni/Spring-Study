@@ -65,9 +65,12 @@ public class BoardServiceImpl implements BoardService {
 			
 			// 3) member 테이블에 userpoint를 update
 			mDao.updateUserPoint("게시물작성", newBoard.getWriter());
-			
-			// 4) pointlog 테이블에 insert
 			plDao.insertPointLog(new PointLog(-1, null, "게시물작성", 2, newBoard.getWriter()));
+//			if( == 1) {
+//				// 4) pointlog 테이블에 insert
+//				
+//			}
+			
 			
 		}
 	}
@@ -121,6 +124,8 @@ public class BoardServiceImpl implements BoardService {
 		if(readCount==1) {
 			Board board = bDao.selectBoardByNo(no);
 			List<UploadedFile> upFileList = bDao.selectUploadedFile(no);
+			System.out.println(board.toString());
+			System.out.println(upFileList.toString());
 			
 			result.put("board", board);
 			result.put("upFileList", upFileList);
