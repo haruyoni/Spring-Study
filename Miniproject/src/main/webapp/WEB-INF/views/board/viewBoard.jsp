@@ -11,7 +11,9 @@
 
 <title>${board.title}</title>
 <script>
-
+	let pageNo = 1;
+	let boardNo = "${board.no}"
+	
 	$(function(){
 		getAllReplies();
 		
@@ -22,10 +24,10 @@
 			if(${sessionScope.loginUser != null}){
 				console.log("로그인 ")
 				$.ajax({
-					url : "like.bo", // 데이터가 송수신될 서버의 주소
+					url : "like", // 데이터가 송수신될 서버의 주소
 					type : "GET", // 통신 방식 (GET, POST, PUT, DELETE)
 					data : {
-						"boardNo" : "${board.no}",
+						"boardNo" : boardNo,
 						"userId" : "${sessionScope.loginUser.userId}"
 					},
 					dataType : "json", // 수신 받을 데이터 타입 (MINE TYPE)
@@ -58,26 +60,68 @@
 	});
 	
 	function getAllReplies(){
-		let boardNo = "${board.no}";
+// 		let boardNo = "${board.no}";
 		$.ajax({
-			url : "/reply/all/"+boardNo, 
+			url : "/reply/all/"+boardNo + "/" + pageNo, 
 			type : "GET", 
 			dataType : "json", 
 			async : false, 
 			success : function(data) {
 				console.log(data);
 				outputReplies(data);
+				outputPagination(data);
 			},
 			error : function() {},
 			complete : function() {},
 		});
 	}
+	function outputPagination(json){
+		let output = "";
+		let pagingInfo = json.pagingInfo;
+		console.log(pagingInfo.endNumOfCurrentPagingBlock)
+		
+		if(pagingInfo.pageBlockOfCurrentPage>1){
+			output+= `<li class="page-item"><a class="page-link"
+				href="/reply/all/\${boardNo}/\${pagingInfo.startNumOfCurrentPagingBlock - 1}">&lt;&lt;</a></li>`;
+		}
+		if(pageNo>1){
+			output+=`<li class="page-item"><a class="page-link"
+				href="/reply/all/\${boardNo}/\${pageNo - 1}">&lt;</a></li>`;
+		}
+		
+		for(let i=pagingInfo.startNumOfCurrentPagingBlock; i<=pagingInfo.endNumOfCurrentPagingBlock; i++){
+			if(pagingInfo.pageNo==i){
+				output+=`<li class="page-item active">`;
+			}else{
+				output+=`<li class="page-item">`;
+			}
+			output+=`<a class="page-link"
+				href="/reply/all/\${boardNo}/\${i}">\${i}</a>
+			</li>`
+		}
+		
+		if(pagingInfo.totalPageCnt>1){
+			output+=`<li class="page-item"><a class="page-link"
+				href="/reply/all/\${boardNo}/\${pageNo+1}">&gt;</a></li>`;
+		}
+		if(pagingInfo.pageBlockOfCurrentPage < pagingInfo.totalPagingBlockCnt){
+			output+=`<li class="page-item"><a class="page-link"
+				href="/reply/all/\${boardNo}/\${pagingInfo.endNumOfCurrentPagingBlock + 1}">&gt;&gt;</a></li>`;
+		}
+		
+		$("#replyPage").html(output);
+	}
+	
 	function outputReplies(json){
 		let output = "";
-		if(json.length>0){
+		let replyList = json.replyList;
+		let pi = json.pagingInfo;
+		
+		if(replyList.length>0){
 			output += "<hr>";
 		}
-		$.each(json, function(i, item){
+		
+		$.each(replyList, function(i, item){
 			output += `<div class="reply">`;
 			
 			output += `<div class="replyHeader">
@@ -341,6 +385,15 @@
 		<div class="replyDiv">
 			<label>댓글</label>
 			<div class="allReplies mb-3 mt-3" id="repliesArea"></div>
+			
+				<div class="mb-3 mt-3 pageNav">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center pagination-sm" id="replyPage">
+						
+						</ul>
+					</nav>
+				</div>
+			
 			<div class="replyInput mb-3 mt-3">
 				<textarea class="form-control" rows="5" id="replyText"
 					style="width: 100%"></textarea>

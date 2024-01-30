@@ -1,6 +1,7 @@
 package com.miniproj.service.reply;
 
 import java.util.List;
+import java.util.Map;
 
 import com.miniproj.domain.Reply;
 
@@ -10,5 +11,8 @@ public interface ReplyService {
 	
 	// 새 댓글 저장
 	boolean saveReply(Reply newReply) throws Exception;
+
+	// 댓글 페이징
+	Map<String, Object> getAllReplies(int boardNo, int pageNo) throws Exception;
 	
 }

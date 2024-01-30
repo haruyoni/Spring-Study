@@ -42,6 +42,32 @@ window.addEventListener('pageshow', function(event) {
 
 		});
 	});
+	
+	function searchValid(){
+		let sw = $("#searchWord").val();
+		if(sw.length==0){
+			alert("검색어를 입력하세요");
+			return false;
+		}
+		
+		let expText = /[%=><]/; // 데이터베이스에서 조건 연산자
+		if(expText.test(sw) == true) {
+			alert("특수문자를 입력할 수 없습니다.");
+			return false;
+		}
+		
+		let sql = new Array("or", "select", "insert", "update", "delete", "create", 
+				"alter", "drop", "exec", "union", "fetch", "declare", "truncate");
+		for(let i=0; i<sql.length; i++){
+			regEx = new RegExp(sql[i], "gi");
+			
+			if(regEx.test(sw)==true){
+				alert("특정 문자로 검색할 수 없습니다.");
+				return false;
+			}
+		}
+		
+	}
 </script>
 <style>
 input:focus {
@@ -53,7 +79,7 @@ input:focus {
 	-bs-pagination-border-color: none !important; -
 	-bs-pagination-disabled-bg: none !important; -
 	-bs-pagination-disabled-color: gray !important; -
-	-bs-pagination-color: none !important; -
+	-bs-pagination-color: black !important;
 	-bs-pagination-hover-color: none !important;
 }
 
@@ -64,11 +90,14 @@ input:focus {
 
 .page-link {
 	border-radius: 5px;
+	border:none !important;
+ 	color: gray !important; 
 }
 
 .active>.page-link, .page-link.active {
 	background-color: rgb(245, 192, 194) !important;
 	border-color: rgb(245, 192, 194) !important;
+	color: white !important; 
 }
 
 .boardFooter {
@@ -153,7 +182,7 @@ input:focus {
 			<%-- 			${pagingInfo} --%>
 			<!-- 		</div> -->
 			<c:if test="${pagingInfo.totalPagingBlockCnt > 0 }">
-
+	
 				<div class="mb-3 mt-3 pageNav">
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center pagination-sm">
@@ -161,7 +190,7 @@ input:focus {
 							<!-- 이전 블락 버튼 -->
 							<c:if test="${pagingInfo.pageBlockOfCurrentPage > 1}">
 								<li class="page-item"><a class="page-link"
-									href="listAll.bo?pageNo=${pagingInfo.startNumOfCurrentPagingBlock - 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&lt;&lt;</a></li>
+									href="listAll?pageNo=${pagingInfo.startNumOfCurrentPagingBlock - 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&lt;&lt;</a></li>
 							</c:if>
 							<%-- 			<c:if test="${pagingInfo.pageBlockOfCurrentPage > 1}"> --%>
 							<%-- 				<li class="page-item"><a class="page-link" href="listAll.bo?pageNo=${pagingInfo.startNumOfCurrentPagingBlock - 1}">&lt;&lt;</a></li>	 --%>
@@ -170,7 +199,7 @@ input:focus {
 							<!-- 이전 버튼 -->
 							<c:if test="${param.pageNo != null && param.pageNo > 1}">
 								<li class="page-item"><a class="page-link"
-									href="listAll.bo?pageNo=${param.pageNo - 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&lt;</a></li>
+									href="listAll?pageNo=${param.pageNo - 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&lt;</a></li>
 							</c:if>
 
 							<!-- 페이지 블럭 -->
@@ -186,7 +215,7 @@ input:focus {
 									</c:otherwise>
 								</c:choose>
 								<a class="page-link"
-									href="listAll.bo?pageNo=${i}&searchType=${param.searchType}&searchWord=${param.searchWord}"
+									href="listAll?pageNo=${i}&searchType=${param.searchType}&searchWord=${param.searchWord}"
 									tabindex="-1">${i}</a>
 								</li>
 							</c:forEach>
@@ -195,11 +224,11 @@ input:focus {
 							<c:if test="${pagingInfo.totalPageCnt>1}">
 								<c:if test="${param.pageNo==null}">
 									<li class="page-item"><a class="page-link"
-										href="listAll.bo?pageNo=${2}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;</a></li>
+										href="list.bo?pageNo=${2}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;</a></li>
 								</c:if>
 								<c:if test="${param.pageNo < pagingInfo.totalPageCnt}">
 									<li class="page-item"><a class="page-link"
-										href="listAll.bo?pageNo=${param.pageNo + 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;</a></li>
+										href="list.bo?pageNo=${param.pageNo + 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;</a></li>
 								</c:if>
 							</c:if>
 
@@ -207,7 +236,7 @@ input:focus {
 							<c:if
 								test="${pagingInfo.pageBlockOfCurrentPage < pagingInfo.totalPagingBlockCnt}">
 								<li class="page-item"><a class="page-link"
-									href="listAll.bo?pageNo=${pagingInfo.endNumOfCurrentPagingBlock + 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;&gt;</a></li>
+									href="list.bo?pageNo=${pagingInfo.endNumOfCurrentPagingBlock + 1}&searchType=${param.searchType}&searchWord=${param.searchWord}">&gt;&gt;</a></li>
 							</c:if>
 							<%-- 			<c:if test="${pagingInfo.pageBlockOfCurrentPage < pagingInfo.totalPagingBlockCnt}"> --%>
 							<%-- 				<li class="page-item"><a class="page-link" href="listAll.bo?pageNo=${pagingInfo.endNumOfCurrentPagingBlock + 1}">&gt;&gt;</a></li>	 --%>
@@ -218,7 +247,7 @@ input:focus {
 				</div>
 				<!-- 검색 타입(작성자, 제목, 본문)과 검색어 입력 -->
 				<div class="mb-3 mt-3 searchItem">
-					<form action="listAll.bo" class="searchArea">
+					<form action="listAll" class="searchArea">
 						<div style="width: 100px;">
 							<select class="form-select" name="searchType">
 								<option value="writer">작성자</option>
@@ -229,8 +258,8 @@ input:focus {
 						<div>
 							<div class="input-group mb-3" style="width: 250px;">
 								<input type="text" class="form-control" placeholder="검색하세요."
-									name="searchWord">
-								<button class="btn btn-secondary" type="submit">검색</button>
+									name="searchWord" id="searchWord">
+								<button class="btn btn-secondary" type="submit" onclick="searchValid()">검색</button>
 
 							</div>
 					</form>

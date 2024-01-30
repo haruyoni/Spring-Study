@@ -1,6 +1,8 @@
 package com.miniproj.controller.reply;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.miniproj.domain.Reply;
+import com.miniproj.etc.PagingInfo;
 import com.miniproj.service.reply.ReplyService;
 
 @RestController
@@ -24,21 +27,26 @@ public class ReplyController {
 	private ReplyService rService;
 	
 	
-	@ResponseBody
-	@RequestMapping(value="all/{boardNo}", method=RequestMethod.GET)
-	public List<Reply> getAllReplies(@PathVariable("boardNo") int boardNo) {
+//	@ResponseBody
+	@RequestMapping(value="all/{boardNo}/{pageNo}", method=RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getAllReplies(@PathVariable("boardNo") int boardNo,
+			@PathVariable("pageNo") int pageNo) {
 		
-		System.out.println(boardNo+"번 글의 댓글을 가져오자");
-		List<Reply> lst = null;
+		System.out.println(boardNo+"번 글의"+pageNo +"번째 페이지 댓글을 가져오자");
+		ResponseEntity<Map<String, Object>> result = null;
 		try {
-			lst = rService.getAllReplies(boardNo);
-			for(Reply r : lst) {
-				System.out.println(r.toString());
-			}
+			PagingInfo pi = new PagingInfo();
+			List<Reply> lst = rService.getAllReplies(boardNo);
+			
+			Map<String, Object> map = rService.getAllReplies(boardNo, pageNo);
+			
+			result = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			result = new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
-		return lst;
+		return result;
 	}
 	
 	

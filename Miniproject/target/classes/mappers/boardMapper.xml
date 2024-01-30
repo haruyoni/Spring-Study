@@ -4,57 +4,123 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.miniproj.mappers.boardMapper">
 	<select id="getAllBoard" resultType="Board">
-		select * from board order by no desc
+		select * from board 		
+		<where>
+			<choose>
+				<when test="searchType == 'writer'">
+					writer like #{searchWord}
+				</when>
+				<when test="searchType == 'title'">
+					title like #{searchWord}
+				</when>
+				<otherwise>
+					content like #{searchWord}
+				</otherwise>
+			</choose>
+		</where>
+		order by no desc limit #{startRowIndex}, #{viewPostCntPerPage}
+	</select>
+	
+	<select id="getSearchBoard" resultType="Board">
+		select * from board 		
+		<where>
+			<choose>
+				<when test="searchType == 'writer'">
+					writer like #{searchWord}
+				</when>
+				<when test="searchType == 'title'">
+					title like #{searchWord}
+				</when>
+				<otherwise>
+					content like #{searchWord}
+				</otherwise>
+			</choose>
+		</where>
+		order by no desc limit #{startRowIndex}, #{viewPostCntPerPage}
 	</select>
 
 	<insert id="insertNewBoard">
-		insert into board(writer, title, content) 
+		insert into board(writer, title, content)
 		values(#{writer}, #{title}, #{content})
 	</insert>
-	
+
 	<select id="getNo" resultType="int">
 		select max(no) from board
 	</select>
-	
+
 	<insert id="insertUploadedFile">
-		insert into uploadedfile(originFileName, newFileName, size, boardNo, thumbFileName)
-		values(#{originalFileName}, #{newFileName}, #{fileSize}, #{boardNo}, #{thumbFileName})
+		insert into uploadedfile(originFileName, newFileName,
+		size, boardNo, thumbFileName)
+		values(#{originalFileName},
+		#{newFileName}, #{fileSize}, #{boardNo}, #{thumbFileName})
 	</insert>
-	
+
 	<select id="getReadCountProcess" resultType="ReadCountProcess">
-		select * from readcountprocess 
+		select * from
+		readcountprocess
 		where ipAddr = #{ipAddr} and boardNo = #{boardNo}
 	</select>
-	
+
 	<select id="getHourDiffReadTime" resultType="int">
-		select timestampdiff(hour, readTime, now()) from readcountprocess 
-		where ipAddr=#{ipAddr} and boardNo = #{boardNo} 
+		select
+		timestampdiff(hour, readTime, now()) from readcountprocess
+		where
+		ipAddr=#{ipAddr} and boardNo = #{boardNo}
 	</select>
-	
+
 	<update id="updateReadCountProcess">
-		update readcountprocess 
-		set readTime=now() 
-		where boardNo=#{boardNo} and ipAddr = #{ipAddr}
+		update readcountprocess
+		set readTime=now()
+		where
+		boardNo=#{boardNo} and ipAddr = #{ipAddr}
 	</update>
-	
+
 	<update id="updateReadCount">
-		update board 
-		set readCount = readCount + 1 
-		where no = #{no}
+		update board
+		set readCount = readCount + 1
+		where no =
+		#{no}
 	</update>
-	
+
 	<insert id="insertReadCountProcess">
-		insert into readcountprocess(ipAddr, boardNo) 
+		insert into readcountprocess(ipAddr, boardNo)
 		values(#{ipAddr}, #{boardNo})
 	</insert>
-	
-	<select id="selectBoardByNo" resultType ="Board">
+
+	<select id="getBoardByNo" resultType="Board">
 		select * from board
-		where no = #{no}
+		where no
+		= #{no}
 	</select>
-	
+
 	<select id="getUploadedFile" resultType="UploadedFile">
-		select * from uploadedfile
+		select * from
+		uploadedfile
 		where boardNo = #{no}
 	</select>
+
+	<select id="getTotalPostCnt" resultType="int">
+		select count(*) from
+		board
+	</select>
+
+
+
+	<select id="getSearchPostCnt" resultType="int">
+		select count(*) from board
+		<where>
+			<choose>
+				<when test="searchType == 'writer'">
+					writer like #{searchWord}
+				</when>
+				<when test="searchType == 'title'">
+					title like #{searchWord}
+				</when>
+				<otherwise>
+					content like #{searchWord}
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+
 </mapper>

@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import com.miniproj.domain.Board;
 import com.miniproj.domain.ReadCountProcess;
+import com.miniproj.domain.SearchCriteria;
 import com.miniproj.domain.UploadedFile;
 import com.miniproj.etc.GetUserIPAddr;
+import com.miniproj.etc.PagingInfo;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -23,9 +25,21 @@ public class BoardDAOImpl implements BoardDAO {
 	private SqlSession ses;
 	
 	@Override
-	public List<Board> selectAllBoard() throws Exception {
-		return ses.selectList(ns + ".getAllBoard");
+	public List<Board> selectAllBoard(PagingInfo pi) throws Exception {
+		return ses.selectList(ns + ".getAllBoard", pi);
 	}
+	
+	@Override
+	public List<Board> selectAllBoard(PagingInfo pi, SearchCriteria sc) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("searchType", sc.getSearchType());
+		param.put("searchWord", "%"+sc.getSearchWord()+"%");
+		param.put("startRowIndex", pi.getStartRowIndex());
+		param.put("viewPostCntPerPage", pi.getViewPostCntPerPage());
+		return ses.selectList(ns + ".getSearchBoard", param);
+	}
+	
+	
 
 	@Override
 	public int insertNewBoard(Board newBoard) throws Exception {
@@ -77,14 +91,28 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public Board selectBoardByNo(int no) throws Exception {
-		return ses.selectOne(ns+".selectBoardByNo", no);
+		return ses.selectOne(ns+".getBoardByNo", no);
 	}
 
 	@Override
 	public List<UploadedFile> selectUploadedFile(int no) throws Exception {
 		return ses.selectList(ns+".getUploadedFile", no);
 	}
-	
+
+	@Override
+	public int selectTotalPostCnt() throws Exception {
+		return ses.selectOne(ns+".getTotalPostCnt");
+	}
+
+	@Override
+	public int selectTotalPostCnt(SearchCriteria sc) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("searchType", sc.getSearchType());
+		param.put("searchWord", "%"+sc.getSearchWord()+"%");
+		
+		System.out.println("param(searchWord)"+param.get("searchWord"));
+		return ses.selectOne(ns+".getSearchPostCnt", param);
+	}
 	
 
 }

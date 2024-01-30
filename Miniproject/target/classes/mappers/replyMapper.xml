@@ -5,11 +5,16 @@
 <mapper namespace="com.miniproj.mappers.replyMapper">
 	<select id="selectAllReplies" resultType="Reply">
 		select * from reply
-		where parentNo = #{boardNo}
+		where parentNo = #{boardNo} limit #{startRowIndex}, #{viewPostCntPerPage}
 	</select>
 	
 	<insert id="insertNewReply">
 		insert into reply (parentNo, replier, replyText) 
 		values(#{parentNo}, #{replier}, #{replyText})
 	</insert>
+	
+	<select id="getTotalReplCnt" resultType="int">
+		select count(*) from reply where parentNo = #{boardNo}
+	</select>
+
 </mapper>

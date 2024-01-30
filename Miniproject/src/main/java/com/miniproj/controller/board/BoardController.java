@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.miniproj.domain.Board;
+import com.miniproj.domain.SearchCriteria;
 import com.miniproj.domain.UploadedFile;
 import com.miniproj.etc.GetUserIPAddr;
+import com.miniproj.etc.PagingInfo;
 import com.miniproj.etc.UploadFileProcess;
 import com.miniproj.service.board.BoardService;
 
@@ -39,6 +41,7 @@ import com.miniproj.service.board.BoardService;
 @RequestMapping("/board/*")
 public class BoardController {
 
+
 	private List<UploadedFile> fileList = new ArrayList<UploadedFile>();
 //	private List<UploadedFile> fileList;
 
@@ -47,17 +50,22 @@ public class BoardController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
+	
+	// 게시판 목록 조회 (paging + 검색)
 	@RequestMapping("listAll")
-	public void listAll(Model model) {
-		logger.info("listAll 호출됨");
+	public void listAll(Model model, 
+			@RequestParam(value="pageNo", defaultValue = "1") int pageNo,
+			@RequestParam(value="searchType", defaultValue = "") String searchType,
+			@RequestParam(value="searchWord", defaultValue = "") String searchWord
+			) {
+		logger.info(pageNo+"페이지 "+searchType+" 타입 "+ searchWord+" 검색어");
 
-		List<Board> lst;
+		SearchCriteria sc = new SearchCriteria(searchWord, searchType);
+		Map<String, Object> map;
 		try {
-			lst = bService.getEntireBoard();
-			for (Board b : lst) {
-				System.out.println(b.toString());
-			}
-			model.addAttribute("boardList", lst);
+			map = bService.getEntireBoard(pageNo, sc);
+			model.addAttribute("boardList", (List<Board>)map.get("boardList"));
+			model.addAttribute("pagingInfo", (PagingInfo)map.get("pagingInfo"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,7 +75,7 @@ public class BoardController {
 	      logger.info("writeBoard가 호출됨.");
 	      
 	      String uuid = UUID.randomUUID().toString();
-	      
+	      	
 	      ses.setAttribute("csrfToken", uuid); // 세션에 바인딩
 	   }
 	   
