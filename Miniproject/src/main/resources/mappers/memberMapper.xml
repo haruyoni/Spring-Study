@@ -6,24 +6,33 @@
 	<select id="curDate" resultType="String">
 		select now()
 	</select>
-	
-<!-- 	<select id="viewMemberByUserId" resultType="com.springbasic.vo.Member"> -->
-<!-- 		select * from member where userId = #{userId} -->
-<!-- 	</select> -->
-	
-<!-- 	<insert id="inputMemberWithoutImg"> -->
-<!--       insert into member(userId, userPwd, userEmail) values (#{userId}, sha1(md5(#{userPwd})), #{userEmail}); -->
-<!--    </insert> -->
-   
-<!--    <select id="getAllMembers" resultType="com.miniproj.domain.Member"> -->
-<!--    		select * from member -->
-<!--    </select> -->
-   
-   <update id="updateUserPoint">
-		<selectKey keyProperty="howmuch" resultType="int" order="BEFORE">	
+
+	<!-- <select id="viewMemberByUserId" resultType="com.springbasic.vo.Member"> -->
+	<!-- select * from member where userId = #{userId} -->
+	<!-- </select> -->
+
+	<!-- <insert id="inputMemberWithoutImg"> -->
+	<!-- insert into member(userId, userPwd, userEmail) values (#{userId}, sha1(md5(#{userPwd})), 
+		#{userEmail}); -->
+	<!-- </insert> -->
+
+	<!-- <select id="getAllMembers" resultType="com.miniproj.domain.Member"> -->
+	<!-- select * from member -->
+	<!-- </select> -->
+
+	<update id="updateUserPoint">
+		<selectKey keyProperty="howmuch" resultType="int"
+			order="BEFORE">
 			select howmuch from pointpolicy where why = #{why}
 		</selectKey>
-		
-		update member set userPoint = userPoint + #{howmuch} where userId = #{userId};
+
+		update member set userPoint = userPoint + #{howmuch} where userId =
+		#{userId};
 	</update>
+
+	<select id="login" resultType="Member">
+		select m.*, u.newFileName as memberImg from member m
+		inner join uploadedfile u on m.userImg = u.no
+		where m.userId = #{userId} and m.userPwd = sha1(md5(#{userPwd}))
+	</select>
 </mapper>

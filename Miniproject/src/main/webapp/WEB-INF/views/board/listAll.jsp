@@ -100,15 +100,15 @@ input:focus {
 	color: white !important; 
 }
 
-.boardFooter {
-	display: flex;
-	justify-content: space-between;
-}
 
 .pageNav {
 	width: 450px;
 }
 
+.boardFooter {
+	display: flex;
+	justify-content: space-between;
+}
 .searchArea {
 	display: flex;
 	justify-content: flex-end;

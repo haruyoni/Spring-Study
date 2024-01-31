@@ -11,11 +11,12 @@
 
 <title>${board.title}</title>
 <script>
-	let pageNo = 1;
+	
 	let boardNo = "${board.no}"
 	
 	$(function(){
-		getAllReplies();
+		let pageNo = 1;
+		getAllReplies(pageNo);
 		
 		
 		// 좋아요 버튼 클릭시
@@ -59,7 +60,7 @@
 		
 	});
 	
-	function getAllReplies(){
+	function getAllReplies(pageNo){
 // 		let boardNo = "${board.no}";
 		$.ajax({
 			url : "/reply/all/"+boardNo + "/" + pageNo, 
@@ -78,15 +79,15 @@
 	function outputPagination(json){
 		let output = "";
 		let pagingInfo = json.pagingInfo;
-		console.log(pagingInfo.endNumOfCurrentPagingBlock)
+		let pageNo = pagingInfo.pageNo;
 		
 		if(pagingInfo.pageBlockOfCurrentPage>1){
 			output+= `<li class="page-item"><a class="page-link"
-				href="/reply/all/\${boardNo}/\${pagingInfo.startNumOfCurrentPagingBlock - 1}">&lt;&lt;</a></li>`;
+				href="#" onclick="getAllReplies(\${pagingInfo.startNumOfCurrentPagingBlock - 1}); return false;">&lt;&lt;</a></li>`;
 		}
 		if(pageNo>1){
 			output+=`<li class="page-item"><a class="page-link"
-				href="/reply/all/\${boardNo}/\${pageNo - 1}">&lt;</a></li>`;
+				href="#" onclick="getAllReplies(\${pageNo - 1}); return false;">&lt;</a></li>`;
 		}
 		
 		for(let i=pagingInfo.startNumOfCurrentPagingBlock; i<=pagingInfo.endNumOfCurrentPagingBlock; i++){
@@ -96,17 +97,17 @@
 				output+=`<li class="page-item">`;
 			}
 			output+=`<a class="page-link"
-				href="/reply/all/\${boardNo}/\${i}">\${i}</a>
+				href="#" onclick="getAllReplies(\${i}); return false;">\${i}</a>
 			</li>`
 		}
 		
-		if(pagingInfo.totalPageCnt>1){
+		if(pagingInfo.totalPageCnt>1 && pageNo<pagingInfo.totalPageCnt){
 			output+=`<li class="page-item"><a class="page-link"
-				href="/reply/all/\${boardNo}/\${pageNo+1}">&gt;</a></li>`;
+				href="#" onclick="getAllReplies(\${pageNo+1}); return false;">&gt;</a></li>`;
 		}
 		if(pagingInfo.pageBlockOfCurrentPage < pagingInfo.totalPagingBlockCnt){
 			output+=`<li class="page-item"><a class="page-link"
-				href="/reply/all/\${boardNo}/\${pagingInfo.endNumOfCurrentPagingBlock + 1}">&gt;&gt;</a></li>`;
+				href="#" onclick="getAllReplies(\${pagingInfo.endNumOfCurrentPagingBlock + 1}); return false;">&gt;&gt;</a></li>`;
 		}
 		
 		$("#replyPage").html(output);
@@ -240,8 +241,48 @@
 			complete : function() {},
 		});
 	}
+	
+	function topButton(){
+		$("html, body").animate({scrollTop:0}, '300');
+	}
 </script>
 <style>
+
+input:focus {
+	outline: none !important;
+}
+
+.pagination { 
+	-bs-pagination-focus-box-shadow : none !important;
+	-bs-pagination-focus-box-shadow: none !important; 
+	-bs-pagination-border-color: none !important; 
+	-bs-pagination-disabled-bg: none !important; 
+	-bs-pagination-disabled-color: gray !important; 
+	-bs-pagination-color: black !important;
+	-bs-pagination-hover-color: none !important;
+}
+
+.page-item {
+	margin-left: 6px;
+	margin-right: 6px;
+}
+
+.page-link {
+	border-radius: 5px;
+	border:none !important;
+ 	color: gray !important; 
+}
+
+.active>.page-link, .page-link.active {
+	background-color: rgb(245, 192, 194) !important;
+	border-color: rgb(245, 192, 194) !important;
+	color: white !important; 
+}
+
+.pageNav {
+	margin : auto;
+	width: 450px;
+}
 .reply {
 	padding: 10px;
 }
@@ -410,7 +451,7 @@
 				<img src="${pageContext.request.contextPath}/resources/images/list.png">목록
 			</button>
 			
-			<button class="btns" type="button" onclick="location.href='#'">
+			<button class="btns" id="topBtn" type="button" onclick="topButton();">
 				<img src="${pageContext.request.contextPath}/resources/images/up-arrows.png">맨위로
 			</button>
 		</div>

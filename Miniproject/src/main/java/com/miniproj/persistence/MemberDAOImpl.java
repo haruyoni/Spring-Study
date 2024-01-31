@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.miniproj.domain.LoginDTO;
 import com.miniproj.domain.Member;
 
 @Repository
@@ -31,6 +32,11 @@ public class MemberDAOImpl implements MemberDAO {
 		param.put("userId", userId);
 		
 		return ses.update(ns+".updateUserPoint", param);
+	}
+
+	@Override
+	public Member login(LoginDTO tmpMember) throws Exception {
+		return ses.selectOne(ns+".login", tmpMember);
 	}
 
 }

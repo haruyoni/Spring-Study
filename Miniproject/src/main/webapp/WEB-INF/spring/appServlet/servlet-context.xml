@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -7,24 +8,65 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	<context:component-scan base-package="com.miniproj.controller" />
-	
+
+	<context:component-scan
+		base-package="com.miniproj.controller" />
+
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<beans:property name="maxUploadSize" value="5242880"></beans:property>
+		<beans:property name="maxUploadSize" value="5242880"></beans:property>
 	</beans:bean>
+
+	<!-- 인터셉터 객체 등록 -->
+	<beans:bean id="testInterceptor"
+		class="com.miniproj.interceptor.TestInterceptor">
+	</beans:bean>
+	
+	<beans:bean id="loginInterceptor"
+		class="com.miniproj.interceptor.LoginInterceptor">
+	</beans:bean>
+	
+	<beans:bean id="authInterceptor"
+		class="com.miniproj.interceptor.AuthenticationInterceptor">
+	</beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/doInterceptorA"/> <!-- 이 URI가 매핑이 되면 -->
+			<beans:ref bean="testInterceptor"/> <!-- 이 객체가 동작하도록 -->
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/member/login"/> <!-- 이 URI가 매핑이 되면 -->
+			<beans:ref bean="loginInterceptor"/> <!-- 이 객체가 동작하도록 -->
+		</interceptor>
+		
+		<interceptor>
+			<!-- 로그인 인증이 필요한 mapping 주소들 -->
+			<mapping path="/board/writeBoard"/> <!-- 이 URI가 매핑이 되면 -->
+			
+			
+			<beans:ref bean="authInterceptor"/> <!-- 이 객체가 동작하도록 -->
+		</interceptor>
+		
+	</interceptors>
+	
+	
 </beans:beans>

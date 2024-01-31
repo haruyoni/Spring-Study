@@ -4,9 +4,10 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.miniproj.domain.Board" alias="Board" />
-		<typeAlias type="com.miniproj.domain.ReadCountProcess" alias="ReadCountProcess" />
-		<typeAlias type="com.miniproj.domain.UploadedFile" alias="UploadedFile" />
-		<typeAlias type="com.miniproj.domain.Reply" alias="Reply" />
+		<typeAlias alias="Board"  type="com.miniproj.domain.Board"/>
+		<typeAlias alias="ReadCountProcess" type="com.miniproj.domain.ReadCountProcess" />
+		<typeAlias alias="UploadedFile"  type="com.miniproj.domain.UploadedFile"/>
+		<typeAlias alias="Reply"  type="com.miniproj.domain.Reply"/>
+		<typeAlias alias="Member"  type="com.miniproj.domain.Member" />
 	</typeAliases>
 </configuration>

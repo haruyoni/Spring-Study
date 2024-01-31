@@ -57,20 +57,20 @@
 				<c:choose>
 					<c:when test="${sessionScope.loginUser == null}">
 						<li class="nav-item">
-							<a class="nav-link" href="${contextPath}/member/register.jsp">회원가입</a>
+							<a class="nav-link" href="${contextPath}/member/register">회원가입</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="${contextPath}/member/login.jsp">로그인</a>
+							<a class="nav-link" href="${contextPath}/member/login">로그인</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item">
-							<a class="nav-link" href="${contextPath}/member/mypage.jsp">${sessionScope.loginUser.userId}
-								<img src="${contextPath}/${sessionScope.loginUser.imgName}" class="userImg">
+							<a class="nav-link" href="${contextPath}/member/mypage">${sessionScope.loginUser.userId}
+								<img src="${contextPath}/${sessionScope.loginUser.memberImg}" class="userImg">
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="${contextPath}/member/logout.mem">로그아웃</a>
+							<a class="nav-link" href="${contextPath}/member/logout">로그아웃</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
