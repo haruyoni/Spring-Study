@@ -16,6 +16,8 @@
 	
 	$(function(){
 		let pageNo = 1;
+		let status = "${param.status}";
+		
 		getAllReplies(pageNo);
 		
 		
@@ -222,7 +224,7 @@
 	
 	function deleteBoard(){
 		$.ajax({
-			url : "delete.bo", // 데이터가 송수신될 서버의 주소
+			url : "remBoard", // 데이터가 송수신될 서버의 주소
 			type : "GET", // 통신 방식 (GET, POST, PUT, DELETE)
 			data : {
 				"boardNo" : "${board.no}",
@@ -350,6 +352,11 @@ input:focus {
 </style>
 </head>
 <body>
+<c:if test="${param.status == 'noPermission' }">
+	<script type="text/javascript">
+		window.alert("수정 권한이 없습니다.")
+	</script>
+</c:if>
 	<jsp:include page="${contextPath}/WEB-INF/views/header.jsp"></jsp:include>
 	<div class="container content">
 		<div class="titleContainer">
@@ -377,7 +384,7 @@ input:focus {
 				<c:param name="page" value="edit" />
 			</c:url>
 			<button class="btns" type="button"
-				onclick="location.href='${detailUri}'">수정</button>
+				onclick="location.href='modifyBoard?no=${board.no}&writer=${board.writer}'">수정</button>
 			<button class="btns" type="button" onclick="showDeleteModal();">삭제</button>
 			<%-- 			</c:if> --%>
 		</div>

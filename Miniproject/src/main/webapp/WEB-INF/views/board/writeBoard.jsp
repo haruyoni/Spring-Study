@@ -110,12 +110,16 @@ $(function(){
 		width : 100%;
 		height : 120px;
 		border : 1px dotted #333;
+		border-radius : 5px;
 		
 		background-color : #ededed;
 		
 		font-weight : bold;
 		line-height : 120px;
 		text-align : center;
+	}
+	#content{
+		border-radius : 10px;
 	}
 </style>
 </head>
@@ -130,8 +134,7 @@ $(function(){
 		<h1>게시판 글쓰기</h1>
 		<form action="writeBoard" method="post">
 			<div class="mb-3 mt-3">
-			    <label for="writer" class="form-label">작성자:</label>
-			    <input type="text" class="form-control" id="writer" name="writer" value="${sessionScope.loginUser.userId}" >
+			    <input type="hidden" class="form-control" id="writer" name="writer" value="${loginUser.userId}" >
 			</div>
 			
 			<div class="mb-3 mt-3">

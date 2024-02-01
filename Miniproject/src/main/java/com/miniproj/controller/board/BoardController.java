@@ -180,5 +180,16 @@ public class BoardController {
 		model.addAttribute("board", (Board)result.get("board"));
 		model.addAttribute("upFileList", (List<UploadedFile>)result.get("upFileList"));
 	}
+	
+	@RequestMapping("modifyBoard")
+	public void modifyBoard(@RequestParam("no") int no,
+			@RequestParam("writer") String writer) {
+		System.out.println(no+"번 글을 수정하자");
+	}
 
+	@RequestMapping("remBoard")
+	public void remBoard(@RequestParam("no") int no,
+			@RequestParam("writer") String writer) {
+		System.out.println(no+"번 글을 삭제하자");
+	}
 }

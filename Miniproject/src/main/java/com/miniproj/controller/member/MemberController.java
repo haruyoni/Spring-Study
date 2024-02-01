@@ -1,6 +1,8 @@
 package com.miniproj.controller.member;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.miniproj.domain.LoginDTO;
 import com.miniproj.domain.Member;
+import com.miniproj.etc.SessionCheck;
 import com.miniproj.service.member.MemberService;
 
 @Controller
@@ -26,6 +29,7 @@ public class MemberController {
 	public void loginGET() {
 		logger.info("loginGET 방식 호출됨");
 	}
+	
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public void loginPOST(LoginDTO tmpMember, Model model) throws Exception {
 		System.out.println(tmpMember.toString() + "으로 로그인해보자.");
@@ -41,6 +45,22 @@ public class MemberController {
 			System.out.println("로그인 실패");
 			return;
 		}
+	}
+	
+	@RequestMapping("logout")
+	public String logout(HttpSession ses) {
+		System.out.println("로그아웃 : "+ses.getId());
 		
+//		if(ses.getAttribute("loginUser")!=null) {
+//			ses.removeAttribute("loginUser");
+//			ses.invalidate();
+//		}
+		
+		// 로그아웃 할 때, 세션Map에 담겨진 세션 제거
+		if(ses.getAttribute("loginUser") != null) {
+			SessionCheck.removeKey(((Member)ses.getAttribute("loginUser")).getUserId());
+		}
+		
+		return "redirect:/";
 	}
 }

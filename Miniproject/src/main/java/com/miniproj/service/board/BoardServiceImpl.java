@@ -71,6 +71,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	@Transactional(rollbackFor=Exception.class)
 	public Map<String, Object> getBoardByNo(int no, String ipAddr) throws Exception{
 //		💡 **해당 아이피 주소와 글번호가 같은 것이 없으면**
 //

@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.miniproj.domain.Member;
+import com.miniproj.etc.DestinationPath;
+import com.miniproj.etc.SessionCheck;
 
 // 제어를 빼앗아 실제 로그인을 처리하는 interceptor
 public class LoginInterceptor extends HandlerInterceptorAdapter {
@@ -16,7 +18,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
 		System.out.println("LoginInterceptor - preHandle(): 로그인 처리하러 왔음...");
 		return true;
 	}
@@ -35,7 +36,18 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			System.out.println("현재 로그인한 유저 : "+loginMember.toString());
 			ses.setAttribute("loginUser", loginMember);
 			
-			response.sendRedirect("/");
+			// 중복 로그인 체크
+			SessionCheck.replaceSessionKey(ses, loginMember.getUserId());
+			
+			// 로그인 성공 후 돌아갈 경로 처리
+			String returnPath = "";
+			if(ses.getAttribute("returnPath")!=null) {
+				returnPath = (String)ses.getAttribute("returnPath");
+			} else {
+				returnPath = "/";
+			}
+						
+			response.sendRedirect(returnPath);
 		}
 	}
 

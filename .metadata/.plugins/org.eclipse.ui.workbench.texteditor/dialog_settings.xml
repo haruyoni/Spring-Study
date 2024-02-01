@@ -6,8 +6,12 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="pageCntPerBlock"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
+			<item value="imgName"/>
+			<item value="imgname"/>
+			<item value="im"/>
+			<item value="img"/>
 			<item value="pageCntPerblock"/>
 			<item value="pageCntPer"/>
 			<item value="getboard"/>
@@ -19,10 +23,6 @@
 			<item value="s"/>
 			<item value="paging"/>
 			<item value="pagine"/>
-			<item value="pageNo"/>
-			<item value="info"/>
-			<item value="getpag"/>
-			<item value="getpagi"/>
 		</list>
 		<list key="replacehistory">
 			<item value="board"/>
