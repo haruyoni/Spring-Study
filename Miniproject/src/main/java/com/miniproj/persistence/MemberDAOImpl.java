@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.miniproj.domain.LoginDTO;
 import com.miniproj.domain.Member;
+import com.miniproj.domain.SessionDTO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -37,6 +38,11 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public Member login(LoginDTO tmpMember) throws Exception {
 		return ses.selectOne(ns+".login", tmpMember);
+	}
+
+	@Override
+	public int updateSession(SessionDTO sesDTO) throws Exception {
+		return ses.update(ns+".updateSession", sesDTO);
 	}
 
 }

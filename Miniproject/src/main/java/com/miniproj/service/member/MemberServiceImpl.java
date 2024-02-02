@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.miniproj.domain.LoginDTO;
 import com.miniproj.domain.Member;
 import com.miniproj.domain.PointLog;
+import com.miniproj.domain.SessionDTO;
 import com.miniproj.persistence.MemberDAO;
 import com.miniproj.persistence.PointLogDAO;
 
@@ -39,6 +40,18 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		return loginMember;
+	}
+
+	@Override
+	public boolean remember(SessionDTO sessionDTO) throws Exception {
+		boolean result = false;
+		int upResult = mDao.updateSession(sessionDTO);
+		System.out.println("세션 업데이트 결과 : "+upResult);
+		if(upResult == 1) {
+			result = true;
+		}
+		
+		return result;
 	}
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-    <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.persistence{MemberDAO.java[MemberDAO" modifiers="513" timestamp="1706252792466"/>
+    <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.persistence{MemberDAO.java[MemberDAO" modifiers="513" timestamp="1706857127958"/>
     <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.persistence{BoardDAO.java[BoardDAO" modifiers="513" timestamp="1706594233160"/>
     <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.service.board{BoardService.java[BoardService" modifiers="513" timestamp="1706584789029"/>
     <typeInfo handle="=Miniproject/C:\/Users\/goott5\/.m2\/repository\/org\/springframework\/spring-web\/4.3.8.RELEASE\/spring-web-4.3.8.RELEASE.jar=/maven.pomderived=/true=/=/org.eclipse.jst.component.dependency=/\/WEB-INF\/lib=/=/maven.pomderived=/true=/=/org.eclipse.jst.component.archivename=/spring-web-4.3.8.RELEASE.jar=/=/maven.groupId=/org.springframework=/=/maven.artifactId=/spring-web=/=/maven.version=/4.3.8.RELEASE=/=/maven.scope=/compile=/&lt;org.springframework.web.multipart.commons(CommonsMultipartResolver.class[CommonsMultipartResolver" modifiers="33" timestamp="1705479745963"/>
@@ -10,5 +10,5 @@
     <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.persistence{ReplyDAO.java[ReplyDAO" modifiers="513" timestamp="1706606187519"/>
     <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.interceptor{TestInterceptor.java[TestInterceptor" modifiers="1" timestamp="1706672894444"/>
     <typeInfo handle="=Miniproject/C:\/Users\/goott5\/.m2\/repository\/org\/springframework\/spring-webmvc\/4.3.8.RELEASE\/spring-webmvc-4.3.8.RELEASE.jar=/maven.pomderived=/true=/=/org.eclipse.jst.component.dependency=/\/WEB-INF\/lib=/=/maven.pomderived=/true=/=/org.eclipse.jst.component.archivename=/spring-webmvc-4.3.8.RELEASE.jar=/=/maven.groupId=/org.springframework=/=/maven.artifactId=/spring-webmvc=/=/maven.version=/4.3.8.RELEASE=/=/maven.scope=/compile=/&lt;org.springframework.web.servlet.handler(HandlerInterceptorAdapter.class[HandlerInterceptorAdapter" modifiers="1057" timestamp="1705479745952"/>
-    <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.service.member{MemberService.java[MemberService" modifiers="513" timestamp="1706679232548"/>
+    <typeInfo handle="=Miniproject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.miniproj.service.member{MemberService.java[MemberService" modifiers="513" timestamp="1706857253488"/>
 </typeInfoHistroy>

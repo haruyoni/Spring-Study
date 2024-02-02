@@ -1,9 +1,8 @@
 package com.miniproj.persistence;
 
-import java.util.List;
-
 import com.miniproj.domain.LoginDTO;
 import com.miniproj.domain.Member;
+import com.miniproj.domain.SessionDTO;
 
 public interface MemberDAO {
 	String getDate();
@@ -14,4 +13,7 @@ public interface MemberDAO {
 	// 로그인
 	Member login(LoginDTO tmpMember) throws Exception;
 	
+	
+	// 자동로그인 정보 저장
+	int updateSession(SessionDTO sesDTO) throws Exception;
 }

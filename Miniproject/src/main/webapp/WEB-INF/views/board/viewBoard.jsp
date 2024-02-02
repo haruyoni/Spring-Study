@@ -183,8 +183,9 @@
 	
 	function saveReply(){
 		let parentNo = "${board.no}";
-		let replier = "hihi";
+		let replier = "${loginUser.userId}";
 		let replyText = $("#replyText").val();
+		console.log("유저아이디 테스트 : "+replier)
 		
 		let newReply =  {
 				"parentNo" : parentNo,
@@ -193,28 +194,32 @@
 			};
 		console.log(JSON.stringify(newReply));
 		
-		$.ajax({
-			url : "/reply/", 
-			type : "POST", 
-			data : JSON.stringify(newReply),
-			headers : {
-				// 송신하는 데이터의 Mime-type
-				"Content-Type":"application/json",
-				
-				// PUT, DELETE, PATCH 등의 REST에서 사용되는 http-method가 동작하지 않는
-				// 과거의 웹브라우저에서 POST 방식으로 동작하도록 한다.
-				"X-HTTP-Method-Override" : "POST"
-			},
-			dataType : "text", // 수신 받을 데이터 타입 (MIME TYPE)
-			success : function(data) {
-				console.log(data);
-				getAllReplies();
-			},
-			error : function() {
-				alert("error 발생");
-			},
-			complete : function() {},
-		});
+		 if(replier == ""){
+	         location.href="/member/login?redirectURL=viewBoard&no="+parentNo;
+	      } else {
+			$.ajax({
+				url : "/reply/", 
+				type : "POST", 
+				data : JSON.stringify(newReply),
+				headers : {
+					// 송신하는 데이터의 Mime-type
+					"Content-Type":"application/json",
+					
+					// PUT, DELETE, PATCH 등의 REST에서 사용되는 http-method가 동작하지 않는
+					// 과거의 웹브라우저에서 POST 방식으로 동작하도록 한다.
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType : "text", // 수신 받을 데이터 타입 (MIME TYPE)
+				success : function(data) {
+					console.log(data);
+					getAllReplies();
+				},
+				error : function() {
+					alert("error 발생");
+				},
+				complete : function() {},
+			});
+	      }
 	}
 	
 	
@@ -249,17 +254,16 @@
 	}
 </script>
 <style>
-
 input:focus {
 	outline: none !important;
 }
 
-.pagination { 
-	-bs-pagination-focus-box-shadow : none !important;
-	-bs-pagination-focus-box-shadow: none !important; 
-	-bs-pagination-border-color: none !important; 
-	-bs-pagination-disabled-bg: none !important; 
-	-bs-pagination-disabled-color: gray !important; 
+.pagination {
+	-bs-pagination-focus-box-shadow: none !important;
+	-bs-pagination-focus-box-shadow: none !important;
+	-bs-pagination-border-color: none !important;
+	-bs-pagination-disabled-bg: none !important;
+	-bs-pagination-disabled-color: gray !important;
 	-bs-pagination-color: black !important;
 	-bs-pagination-hover-color: none !important;
 }
@@ -271,20 +275,21 @@ input:focus {
 
 .page-link {
 	border-radius: 5px;
-	border:none !important;
- 	color: gray !important; 
+	border: none !important;
+	color: gray !important;
 }
 
 .active>.page-link, .page-link.active {
 	background-color: rgb(245, 192, 194) !important;
 	border-color: rgb(245, 192, 194) !important;
-	color: white !important; 
+	color: white !important;
 }
 
 .pageNav {
-	margin : auto;
+	margin: auto;
 	width: 450px;
 }
+
 .reply {
 	padding: 10px;
 }
@@ -345,18 +350,18 @@ input:focus {
 	padding: 10px;
 }
 
-.footerBtns{
+.footerBtns {
 	display: flex;
 	justify-content: space-between;
 }
 </style>
 </head>
 <body>
-<c:if test="${param.status == 'noPermission' }">
-	<script type="text/javascript">
+	<c:if test="${param.status == 'noPermission' }">
+		<script type="text/javascript">
 		window.alert("수정 권한이 없습니다.")
 	</script>
-</c:if>
+	</c:if>
 	<jsp:include page="${contextPath}/WEB-INF/views/header.jsp"></jsp:include>
 	<div class="container content">
 		<div class="titleContainer">
@@ -433,21 +438,23 @@ input:focus {
 		<div class="replyDiv">
 			<label>댓글</label>
 			<div class="allReplies mb-3 mt-3" id="repliesArea"></div>
-			
-				<div class="mb-3 mt-3 pageNav">
-					<nav aria-label="Page navigation example">
-						<ul class="pagination justify-content-center pagination-sm" id="replyPage">
-						
-						</ul>
-					</nav>
-				</div>
-			
+
+			<div class="mb-3 mt-3 pageNav">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center pagination-sm"
+						id="replyPage">
+
+					</ul>
+				</nav>
+			</div>
+
 			<div class="replyInput mb-3 mt-3">
 				<textarea class="form-control" rows="5" id="replyText"
 					style="width: 100%"></textarea>
 				<div class=replyBtns mb-3 mt-3>
 					<button class="btns" type="button"
-						style="height: 50px; width: 100%" onclick="saveReply();">댓글 등록</button>
+						style="height: 50px; width: 100%" onclick="saveReply();">댓글
+						등록</button>
 				</div>
 			</div>
 		</div>
@@ -455,11 +462,13 @@ input:focus {
 
 		<div class="footerBtns">
 			<button class="btns" type="button" onclick="location.href='listAll'">
-				<img src="${pageContext.request.contextPath}/resources/images/list.png">목록
+				<img
+					src="${pageContext.request.contextPath}/resources/images/list.png">목록
 			</button>
-			
+
 			<button class="btns" id="topBtn" type="button" onclick="topButton();">
-				<img src="${pageContext.request.contextPath}/resources/images/up-arrows.png">맨위로
+				<img
+					src="${pageContext.request.contextPath}/resources/images/up-arrows.png">맨위로
 			</button>
 		</div>
 	</div>

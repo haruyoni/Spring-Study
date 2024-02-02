@@ -6,8 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=""/>
+		<item key="selection" value="수정"/>
 		<list key="findhistory">
+			<item value="수정"/>
+			<item value="servlet"/>
 			<item value="imgName"/>
 			<item value="imgname"/>
 			<item value="im"/>
@@ -21,8 +23,6 @@
 			<item value="input-group"/>
 			<item value="search"/>
 			<item value="s"/>
-			<item value="paging"/>
-			<item value="pagine"/>
 		</list>
 		<list key="replacehistory">
 			<item value="board"/>

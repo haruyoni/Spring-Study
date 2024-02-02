@@ -74,6 +74,7 @@
 						</li>
 					</c:otherwise>
 				</c:choose>
+				
 				<c:if test="${sessionScope.loginUser.isAdmin =='Y'}">
 					<li class="nav-item">
 						<a class="nav-link" href="${contextPath}/admin/admin.jsp">관리자 페이지</a>

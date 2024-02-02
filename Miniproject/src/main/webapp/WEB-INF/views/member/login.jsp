@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +23,12 @@
 				<label for="userPwd" class="form-label">비밀번호</label> <input
 					type="password" class="form-control" id="userPwd"
 					placeholder="비밀번호를 입력해주세요" name="userPwd">
+			</div>
+
+			<div class="form-group form-check mb-3 mt-3">
+				<input type="checkbox" class="form-check-input" id="remember"
+					name="remember"> <label class="form-check-label"
+					for="remember">자동 로그인</label>
 			</div>
 
 			<button type="submit" class="btn btn-secondary">로그인</button>

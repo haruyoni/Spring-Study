@@ -31,8 +31,17 @@
 	</update>
 
 	<select id="login" resultType="Member">
-		select m.*, u.newFileName as memberImg from member m
+		select m.*, u.newFileName as memberImg 
+		from member m
 		inner join uploadedfile u on m.userImg = u.no
 		where m.userId = #{userId} and m.userPwd = sha1(md5(#{userPwd}))
 	</select>
+	
+	<update id="updateSession">
+		update member 
+		set 
+			sessionLimit = #{sessionLimit}, 
+			sessionKey = #{sessionKey}
+		where userId = #{userId}
+	</update>
 </mapper>
