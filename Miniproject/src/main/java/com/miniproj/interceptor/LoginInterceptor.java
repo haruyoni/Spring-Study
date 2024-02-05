@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.util.WebUtils;
 
 import com.miniproj.domain.Member;
 import com.miniproj.domain.SessionDTO;
@@ -28,6 +29,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		System.out.println("LoginInterceptor - preHandle(): 로그인 처리하러 왔음...");
+		
+		boolean showLoginPage = true;
+		
+		
 		// 댓글 작성 로그인(이전 경로 저장)처리
 	      if(request.getMethod().equals("GET") && request.getParameter("redirectURL") != null) { // GET방식, 쿼리스트링에 redirectURL이 존재하는 경우
 	         if(!request.getParameter("redirectURL").equals("") && request.getParameter("redirectURL").contains("viewBoard")) {
@@ -37,7 +42,37 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	            request.getSession().setAttribute("returnPath", uri + queryString);
 	         }
 	      }
-		return true;
+	      
+		// 자동로그인을 체크한 유저에 대해 로그인 처리
+		// 1) 쿠키가 있는지 검사
+		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		System.out.println("자동 로그인 쿠키 검사 : "+loginCookie);
+	      if(loginCookie != null) {
+				// -> 쿠키에 저장된 세션아이디와 DB에 저장된 sessionKey가 같은지 비교
+				// -> DB에 저장된 sessionLimit가 현재시간보다 큰지 비교
+				
+				String cookieValue = loginCookie.getValue(); // 쿠키에 저장된 세션아이디
+				Member autoLoginUser = service.checkAutoLoginUser(cookieValue);
+				
+				if(autoLoginUser != null) { // 자동로그인 처리해야함
+					System.out.println("자동로그인 할 유저 : "+ autoLoginUser.getUserId());
+					
+					// 로그인 처리
+					WebUtils.setSessionAttribute(request, "loginUser", autoLoginUser);
+					SessionCheck.replaceSessionKey(request.getSession(), autoLoginUser.getUserId());
+					
+					System.out.println("자동로그인 되었습니다."+((Member)WebUtils.getSessionAttribute(request, "loginUser")).toString());
+					
+					if(WebUtils.getSessionAttribute(request, "returnPath")!=null) {
+						response.sendRedirect((String)WebUtils.getSessionAttribute(request, "returnPath"));
+					} else {
+						response.sendRedirect("/");
+					}
+					showLoginPage = false;
+				}
+			}
+	      
+		return showLoginPage;
 	}
 
 	@Override

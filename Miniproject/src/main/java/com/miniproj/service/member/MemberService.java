@@ -10,4 +10,6 @@ public interface MemberService {
 
 	boolean remember(SessionDTO sessionDTO) throws Exception;
 
+	Member checkAutoLoginUser(String sessionKey) throws Exception;
+
 }

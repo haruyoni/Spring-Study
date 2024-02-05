@@ -44,4 +44,12 @@
 			sessionKey = #{sessionKey}
 		where userId = #{userId}
 	</update>
+	
+	<select id="selectAutoLoginUser" resultType="Member">
+		select m.*, u.newFileName as memberImg 
+		from member m
+		inner join uploadedfile u on m.userImg = u.no 
+		where sessionKey = #{sessionKey} and sessionLimit > now()
+	</select>
+	
 </mapper>

@@ -13,13 +13,12 @@
 <script>
 	
 	let boardNo = "${board.no}"
-	
+	let lastPage = 1;
 	$(function(){
-		let pageNo = 1;
 		let status = "${param.status}";
-		
-		getAllReplies(pageNo);
-		
+		getReplyLastPage();
+		console.log("lastPage : "+lastPage);
+		getAllReplies(lastPage);
 		
 		// 좋아요 버튼 클릭시
 		$(".likeBtn").on("click",function(){
@@ -73,6 +72,19 @@
 				console.log(data);
 				outputReplies(data);
 				outputPagination(data);
+			},
+			error : function() {},
+			complete : function() {},
+		});
+	}
+	function getReplyLastPage(){
+		$.ajax({
+			url : "/reply/all/"+boardNo + "/1", 
+			type : "GET", 
+			dataType : "json", 
+			async : false, 
+			success : function(data) {
+				lastPage = data.pagingInfo.totalPageCnt;
 			},
 			error : function() {},
 			complete : function() {},
@@ -212,7 +224,9 @@
 				dataType : "text", // 수신 받을 데이터 타입 (MIME TYPE)
 				success : function(data) {
 					console.log(data);
-					getAllReplies();
+					getReplyLastPage();
+					getAllReplies(lastPage);
+					$("#replyText").val("");
 				},
 				error : function() {
 					alert("error 발생");

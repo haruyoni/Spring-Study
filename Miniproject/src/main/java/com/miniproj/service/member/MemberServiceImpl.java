@@ -54,4 +54,9 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public Member checkAutoLoginUser(String sessionKey) throws Exception {
+		return mDao.selectAutoLoginUser(sessionKey);
+	}
+
 }
