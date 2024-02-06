@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="com.miniproj.domain.ReadCountProcess"/>
     <fullyQualifiedTypeName name="com.miniproj.etc.UploadedFile"/>
-    <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="com.miniproj.domain.UploadedFile"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
     <fullyQualifiedTypeName name="com.miniproj.service.reply.ReplyService"/>
@@ -12,8 +11,6 @@
     <fullyQualifiedTypeName name="com.miniproj.domain.Reply"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseBody"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
-    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
-    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
     <fullyQualifiedTypeName name="com.miniproj.domain.Like"/>
     <fullyQualifiedTypeName name="org.springframework.web.method.HandlerMethod"/>
@@ -29,7 +26,6 @@
     <fullyQualifiedTypeName name="lombok.Data"/>
     <fullyQualifiedTypeName name="com.miniproj.domain.LoginDTO"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
-    <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
     <fullyQualifiedTypeName name="com.miniproj.persistence.MemberDAO"/>
     <fullyQualifiedTypeName name="com.miniproj.persistence.PointLogDAO"/>
     <fullyQualifiedTypeName name="com.miniproj.domain.PointLog"/>
@@ -60,4 +56,8 @@
     <fullyQualifiedTypeName name="com.miniproj.domain.SessionDTO"/>
     <fullyQualifiedTypeName name="java.sql.Timestamp"/>
     <fullyQualifiedTypeName name="lombok.NonNull"/>
+    <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
 </qualifiedTypeNameHistroy>

@@ -22,5 +22,11 @@ public interface BoardService {
 
 	// 페이지 번호에 해당하는 게시글 전체 조회
 	Map<String, Object> getEntireBoard(int pageNo, SearchCriteria sc) throws Exception;
+
+	boolean likeBoard(int boardNo, String who) throws Exception;
+
+	boolean disLikeBoard(int boardNo, String who) throws Exception;
+
+	List<String> getLikedUsers(int boardNo) throws Exception;
 }
 	

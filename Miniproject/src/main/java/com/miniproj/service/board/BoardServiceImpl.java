@@ -184,4 +184,32 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public boolean likeBoard(int boardNo, String who) throws Exception {
+		boolean result = false;
+		if(bDao.likeBoard(boardNo, who) == 1) {
+			bDao.updateBoardLikeCount(boardNo, 1);
+			result = true;
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public boolean disLikeBoard(int boardNo, String who) throws Exception {
+		boolean result = false;
+		if(bDao.dislikeBoard(boardNo, who) == 1) {
+			if(bDao.updateBoardLikeCount(boardNo, -1) == 1){
+				result = true;
+			}
+		}
+		return result;
+	}
+	
+	@Override
+	public List<String> getLikedUsers(int boardNo) throws Exception{
+		return bDao.selectLikedUsers(boardNo);
+	}
+
 }

@@ -12,46 +12,22 @@
 <title>${board.title}</title>
 <script>
 	
-	let boardNo = "${board.no}"
+	let boardNo = "${board.no}";
 	let lastPage = 1;
+	let userId = "${loginUser.userId}";
 	$(function(){
 		let status = "${param.status}";
+		
 		getReplyLastPage();
 		console.log("lastPage : "+lastPage);
+		if(lastPage == 0){
+			lastPage = 1;
+		}
 		getAllReplies(lastPage);
 		
 		// 좋아요 버튼 클릭시
 		$(".likeBtn").on("click",function(){
-			console.log("붐업 클릭")
-			if(${sessionScope.loginUser != null}){
-				console.log("로그인 ")
-				$.ajax({
-					url : "like", // 데이터가 송수신될 서버의 주소
-					type : "GET", // 통신 방식 (GET, POST, PUT, DELETE)
-					data : {
-						"boardNo" : boardNo,
-						"userId" : "${sessionScope.loginUser.userId}"
-					},
-					dataType : "json", // 수신 받을 데이터 타입 (MINE TYPE)
-					async : false, // 동기 통신 방식으로 하곘다. (default : true 비동기)
-					success : function(data) {
-						console.log(data);
-						if(data.status=="success"){
-							$(".likeCount").html(data.likeCount);
-							if(data.likeStatus == "like"){
-								$(".likeBtn img").attr("src", "${pageContext.request.contextPath}/resources/images/like2.png");
-							} else if(data.likeStatus == "unlike"){
-								$(".likeBtn img").attr("src", "${pageContext.request.contextPath}/resources/images/like1.png");
-							}
-						}
-					},
-					error : function() {},
-					complete : function() {},
-				});
-			} else{
-				alert("로그인 후에 추천 가능합니다.");
-				window.location.href="${pageContext.request.contextPath}/member/login.jsp";
-			}
+			
 		});
 		
 		// 모달 아니오 버튼 
@@ -61,6 +37,38 @@
 		
 	});
 	
+	function boardLikeBtn(behavior){
+		console.log("붐업 클릭"+behavior)
+		
+		if(userId != null){
+			$.ajax({
+				url : "like", // 데이터가 송수신될 서버의 주소
+				type : "POST", // 통신 방식 (GET, POST, PUT, DELETE)
+				data : {
+					"boardNo" : boardNo,
+					"who" : userId,
+					"behavior" : behavior
+				},
+				dataType : "text", // 수신 받을 데이터 타입 (MINE TYPE)
+				async : false, // 동기 통신 방식으로 하곘다. (default : true 비동기)
+				success : function(data) {
+					console.log("좋아요 거시기 성공함")
+// 						$(".likeCount").html(data.likeCount);
+						if(behavior=="like"){
+							$(".likeBtn img").attr("src", "${pageContext.request.contextPath}/resources/images/like2.png");
+						} else if(behavior=="dislike"){
+							$(".likeBtn img").attr("src", "${pageContext.request.contextPath}/resources/images/like1.png");
+						}
+
+				},
+				error : function() {},
+				complete : function() {},
+			});
+		} else{
+			alert("로그인 후에 추천 가능합니다.");
+			window.location.href="${pageContext.request.contextPath}/member/login";
+		}
+	}
 	function getAllReplies(pageNo){
 // 		let boardNo = "${board.no}";
 		$.ajax({
@@ -430,21 +438,47 @@ input:focus {
 		<hr>
 
 		<div class="likeBtnContainer">
-			<button class="likeBtn" onclick="">
+			<c:set var="hasLike" value="false"></c:set>
+			<c:forEach var="who" items="${likeUsers}">
 				<c:choose>
-					<c:when test="${!board.likeExist}">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/like1.png">
+					<c:when test="${loginUser.userId == who}">
+						<button class="likeBtn" onclick="boardLikeBtn('dislike')">
+							<img
+								src="${pageContext.request.contextPath}/resources/images/like2.png">
+						</button>
+						<c:set var="hasLike" value="true"></c:set>
 					</c:when>
-					<c:otherwise>
-						<img
-							src="${pageContext.request.contextPath}/resources/images/like2.png">
-					</c:otherwise>
 				</c:choose>
+			</c:forEach>
+			<c:if test="${hasLike == false}">
+				<button class="likeBtn" onclick="boardLikeBtn('like')">
+					<img
+						src="${pageContext.request.contextPath}/resources/images/like1.png">
+				</button>
+			</c:if>
 
-				<div class="likeCount">${board.likeCount}</div>
-			</button>
+
+			<div class="likeCount">${board.likeCount}</div>
 		</div>
+		
+		<c:if test="${likeUsers.size() le 3}">
+			<div>이글을 <span>
+			<c:forEach var="who" items="${likeUsers}">
+				${who}님 
+			</c:forEach>
+			</span>이 좋아합니다.
+			</div>
+		</c:if>
+		
+		<c:if test="${likeUsers.size() ge 4}">
+			<div>이글을 <span>
+			<c:forEach var="who" items="${likeUsers}" begin="1" end="3">
+				${who}님 
+			</c:forEach>
+			</span> 외 <span> ${likeUsers.size()-3}</span>명이 좋아합니다.
+			</div>
+		</c:if>
+		
 
 		<hr>
 

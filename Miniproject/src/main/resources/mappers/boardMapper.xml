@@ -122,5 +122,20 @@
 			</choose>
 		</where>
 	</select>
-
+	
+	<insert id="likeBoard">
+		insert into boardlike(boardNo, memberId) values(#{boardNo}, #{who})
+	</insert>
+	
+	<delete id="dislikeBoard">
+		delete from boardlike where boardNo = #{boardNo} and memberId = #{who}
+	</delete>
+	
+	<update id="updateBoardLikeCount">
+		update board set likecount = likecount + #{num} where no = #{boardNo}
+	</update>
+	
+	<select id="selectLikedUsers" resultType="string">
+		select memberId from boardlike where boardNo = #{boardNo}
+	</select>
 </mapper>

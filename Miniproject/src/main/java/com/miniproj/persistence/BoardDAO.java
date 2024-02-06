@@ -47,4 +47,12 @@ public interface BoardDAO {
 
 	int selectTotalPostCnt(SearchCriteria sc) throws Exception;
 
+	int likeBoard(int boardNo, String who) throws Exception;
+
+	int dislikeBoard(int boardNo, String who) throws Exception;
+
+	int updateBoardLikeCount(int boardNo, int num) throws Exception;
+
+	List<String> selectLikedUsers(int boardNo) throws Exception;
+
 }

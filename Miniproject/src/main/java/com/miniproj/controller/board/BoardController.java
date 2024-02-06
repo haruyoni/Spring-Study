@@ -177,8 +177,11 @@ public class BoardController {
 		logger.info(no + "번 글을 상세조회하자!");
 		
 		Map<String, Object> result = bService.getBoardByNo(no, GetUserIPAddr.getIp(request));
+		
 		model.addAttribute("board", (Board)result.get("board"));
 		model.addAttribute("upFileList", (List<UploadedFile>)result.get("upFileList"));
+		model.addAttribute("likeUsers", bService.getLikedUsers(no));
+		
 	}
 	
 	@RequestMapping("modifyBoard")
@@ -192,4 +195,35 @@ public class BoardController {
 			@RequestParam("writer") String writer) {
 		System.out.println(no+"번 글을 삭제하자");
 	}
+	
+  @RequestMapping(value = "like", method=RequestMethod.POST)
+   public ResponseEntity<String> like(   @RequestParam("boardNo") int boardNo, 
+                              @RequestParam("who") String who, 
+                              @RequestParam("behavior") String behavior) {
+      ResponseEntity<String> result = null;
+      System.out.println("좋아요 싫어요 기능 구현 테스트!");
+      System.out.println(who + "사용자가 " + boardNo + "번 글을 " + behavior + "한다고함.");
+      
+      boolean dbResult = false;
+      
+      try {
+         if(behavior.equals("like")) {
+        	 dbResult = bService.likeBoard(boardNo, who);
+         } else if(behavior.equals("dislike")) {
+        	 dbResult = bService.disLikeBoard(boardNo, who);
+         }
+         
+         if(dbResult) {
+        	 result = new ResponseEntity<String>("success", HttpStatus.OK);
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+         result = new ResponseEntity<String>("fail", HttpStatus.CONFLICT);
+      }
+      
+      
+      return result;
+      
+   }
+  
 }

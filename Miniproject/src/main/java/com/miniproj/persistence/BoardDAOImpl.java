@@ -113,6 +113,36 @@ public class BoardDAOImpl implements BoardDAO {
 		System.out.println("param(searchWord)"+param.get("searchWord"));
 		return ses.selectOne(ns+".getSearchPostCnt", param);
 	}
-	
 
+	@Override
+	public int likeBoard(int boardNo, String who) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("boardNo", boardNo);
+		param.put("who", who);
+		
+		return ses.insert(ns+".likeBoard", param);
+	}
+
+	@Override
+	public int dislikeBoard(int boardNo, String who) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("boardNo", boardNo);
+		param.put("who", who);
+		
+		return ses.insert(ns+".dislikeBoard", who);
+	}
+
+	@Override
+	public int updateBoardLikeCount(int boardNo, int num) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("boardNo", boardNo);
+		param.put("num", num);
+		
+		return ses.update(ns+".updateBoardLikeCount", param);
+	}
+	
+	@Override
+	public List<String> selectLikedUsers(int boardNo) throws Exception {
+		return ses.selectList(ns+".selectLikedUsers", boardNo);
+	}
 }

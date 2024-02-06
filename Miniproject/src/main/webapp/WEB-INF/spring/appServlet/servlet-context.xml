@@ -63,6 +63,7 @@
 			<mapping path="/board/writeBoard"/> <!-- 이 URI가 매핑이 되면 -->
 			<mapping path="/board/modifyBoard"/> <!-- 이 URI가 매핑이 되면 -->
 			<mapping path="/board/remBoard"/> <!-- 이 URI가 매핑이 되면 -->
+<!-- 			<mapping path="/board/like"/> 이 URI가 매핑이 되면 -->
 			<mapping path="/reply/"/> <!-- 이 URI가 매핑이 되면 -->
 			
 			

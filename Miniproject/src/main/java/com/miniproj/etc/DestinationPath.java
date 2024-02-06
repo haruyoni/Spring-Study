@@ -23,6 +23,7 @@ public class DestinationPath {
 		if(request.getMethod().equals("GET")) {
 			request.getSession().setAttribute("returnPath", uri+query);
 		}
+		
 	}
 
 }
