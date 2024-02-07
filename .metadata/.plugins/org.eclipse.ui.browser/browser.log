@@ -31,3 +31,24 @@
 1월 22, 2024 17:39:47.865 [7396:14352:0122/173947.865:ERROR:device_event_log_impl.cc(192)] [17:39:47.865] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
 1월 22, 2024 18:08:54.763 [7396:14352:0122/180854.763:ERROR:device_event_log_impl.cc(192)] [18:08:54.763] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
 1월 22, 2024 18:19:07.753 [7396:14352:0122/181907.753:ERROR:device_event_log_impl.cc(192)] [18:19:07.753] USB: usb_service_win.cc:307 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+
+2월 07, 2024 11:32:48.348 NEW SESSION
+2월 07, 2024 11:32:48.348 [16304:15844:0207/113248.346:ERROR:device_event_log_impl.cc(192)] [11:32:48.346] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+2월 07, 2024 11:32:48.394 [16304:15844:0207/113248.393:ERROR:device_event_log_impl.cc(192)] [11:32:48.394] USB: usb_service_win.cc:308 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+2월 07, 2024 12:35:42.693 [16304:15844:0207/123542.692:ERROR:device_event_log_impl.cc(192)] [12:35:42.693] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+2월 07, 2024 12:35:42.732 [16304:15844:0207/123542.732:ERROR:device_event_log_impl.cc(192)] [12:35:42.732] USB: usb_service_win.cc:308 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+2월 07, 2024 13:03:09.712 [16304:15844:0207/130309.711:ERROR:interface_endpoint_client.cc(702)] Message 4 rejected by interface blink.mojom.WidgetHost
+2월 07, 2024 13:08:38.182 INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+2월 07, 2024 13:08:38.182 WARNING: Attempting to use a delegate that only supports static-sized tensors with a graph that has dynamic-sized tensors (tensor#56 is a dynamic-sized tensor).
+2월 07, 2024 14:20:04.672 [16304:15844:0207/142004.671:ERROR:device_event_log_impl.cc(192)] [14:20:04.671] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+2월 07, 2024 14:20:04.711 [16304:15844:0207/142004.710:ERROR:device_event_log_impl.cc(192)] [14:20:04.711] USB: usb_service_win.cc:308 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+2월 07, 2024 14:40:00.90 [16304:15844:0207/144000.090:ERROR:device_event_log_impl.cc(192)] [14:40:00.090] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+2월 07, 2024 14:40:00.129 [16304:15844:0207/144000.129:ERROR:device_event_log_impl.cc(192)] [14:40:00.129] USB: usb_service_win.cc:308 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+2월 07, 2024 14:57:12.419 [16304:15844:0207/145712.419:ERROR:device_event_log_impl.cc(192)] [14:57:12.429] USB: usb_service_win.cc:105 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+2월 07, 2024 14:57:12.466 [16304:15844:0207/145712.466:ERROR:device_event_log_impl.cc(192)] [14:57:12.465] USB: usb_service_win.cc:308 SetupDiEnumDeviceInterfaces: 사용 가능한 데이터가 없습니다. (0x103)
+2월 07, 2024 15:13:21.203 [16304:15844:0207/151321.202:ERROR:interface_endpoint_client.cc(702)] Message 0 rejected by interface blink.mojom.WidgetHost
+2월 07, 2024 15:16:36.689 [16304:15928:0207/151636.689:ERROR:cert_verify_proc_builtin.cc(766)] CertVerifyProcBuiltin for 05friend.com failed:
+2월 07, 2024 15:16:36.689 ----- Certificate i=0 (O=My Company Ltd,L=Newbury,ST=Berkshire,C=GB) -----
+2월 07, 2024 15:16:36.689 ERROR: No matching issuer found
+2월 07, 2024 15:16:36.689 
+2월 07, 2024 15:16:36.690 

@@ -89,7 +89,7 @@ public class UploadFileProcess {
 		return completePath.substring(realPath.length()) + File.separator + newFileName;
 	}
 
-	private static String makeCalculcatePath(String realPath) {
+	public static String makeCalculcatePath(String realPath) {
 		// 현재 날짜 얻어오기
 		Calendar cal = Calendar.getInstance();
 //		String year = cal.get(Calendar.YEAR)+"";
