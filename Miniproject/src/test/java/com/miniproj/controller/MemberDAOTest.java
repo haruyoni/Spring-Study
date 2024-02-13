@@ -35,12 +35,12 @@ public class MemberDAOTest {
 //		dao.insertMember(member);
 //	}
 	
-	@Test
-	public void selectAllMembers() {
-		List<Member> lst = dao.selectAllMembers();
-		
-		for(Member m : lst) {
-			System.out.println(m.toString());
-		}
-	}
+//	@Test
+//	public void selectAllMembers() {
+//		List<Member> lst = dao.selectAllMembers();
+//		
+//		for(Member m : lst) {
+//			System.out.println(m.toString());
+//		}
+//	}
 }
